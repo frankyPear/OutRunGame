@@ -15,6 +15,9 @@ class ModulePlayer;
 class ModuleFonts;
 class ModuleSceneSega;
 class ModuleCollision;
+class ModuleSceneStage;
+class ModuleSceneMusic;
+class ModuleTimer;
 //class ModuleSegaInit;
 
 class Application
@@ -28,6 +31,8 @@ public:
 	update_status Update();
 	bool CleanUp();
 
+	void RerunTimer();
+
 public:
 	ModuleRender* renderer;
 	ModuleWindow* window;
@@ -38,7 +43,10 @@ public:
 	ModuleFadeToBlack* fade;
 	ModulePlayer* player;
 	ModuleSceneSega* scene_sega;
+	ModuleSceneStage* scene_stage;
+	ModuleSceneMusic* scene_music;
 	ModuleCollision* colliders;
+	ModuleTimer* Rtimer;
 	bool switchmap = false;
 private:
 

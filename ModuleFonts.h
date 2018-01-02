@@ -23,15 +23,21 @@ public:
 
 	SDL_Rect FindCharacter(char characterToFind);
 
-	void PrintCharacter(SDL_Surface * font, int positionX, int positionY, string textToPrint);
+	SDL_Rect FindNumber(char characterToFind);
 
-	//void PrintCharacter(SDL_Surface * font, int positionX, int positionY, string textToPrint);
+	void PrintInterface(SDL_Texture * font, int positionX, int positionY, string textToPrint);
 
-	// Print Fonts
-	SDL_Surface* pinkFonts = nullptr;
-	SDL_Surface* greenFonts = nullptr;
-	SDL_Surface* lightgreenFonts = nullptr;
-	SDL_Surface* purpleFonts = nullptr;
+	void PrintCharacter(SDL_Texture * font, int positionX, int positionY, string textToPrint);
+
+	void PrintVelocity(SDL_Texture * font, int positionX, int positionY, string textToPrint);
+
+	SDL_Texture* pinkFonts = nullptr;
+	SDL_Texture* greenFonts = nullptr;
+	SDL_Texture* lightgreenFonts = nullptr;
+	SDL_Texture* purpleFonts = nullptr;
+	SDL_Texture* yellowFonts = nullptr;
+	SDL_Texture* velocity = nullptr;
+	SDL_Texture* marker = nullptr;
 
 
 private:

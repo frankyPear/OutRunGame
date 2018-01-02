@@ -7,9 +7,13 @@
 #include "ModuleFonts.h"
 #include "ModuleFadeToBlack.h"
 #include "ModuleSceneSega.h"
+#include "ModuleSceneStage.h"
+#include "ModuleSceneMusic.h"
+#include "ModuleTimer.h"
 #include "ModulePlayer.h"
 #include "ModuleCollision.h"
 #include "SDL\include\SDL.h"
+#include <thread>
 
 using namespace std;
 
@@ -23,12 +27,15 @@ Application::Application()
 	modules.push_back(textures = new ModuleTextures());
 	modules.push_back(audio = new ModuleAudio());
 	modules.push_back(fonts = new ModuleFonts());
+	
 
 	// Game Modules
 	modules.push_back(player = new ModulePlayer(false));
 	modules.push_back(fade = new ModuleFadeToBlack());
 	modules.push_back(scene_sega = new ModuleSceneSega(false));
-	//modules.push_back(colliders = new ModuleCollision));
+	modules.push_back(scene_stage = new ModuleSceneStage(false));
+	modules.push_back(scene_music = new ModuleSceneMusic(false));
+
 }
 
 Application::~Application()
@@ -84,4 +91,5 @@ bool Application::CleanUp()
 
 	return ret;
 }
+
 
