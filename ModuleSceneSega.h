@@ -40,6 +40,7 @@ public:
 	double secondsToQuit;
 	bool finalize = false;
 	long initTimer;
+	int countRescaled = 0;
 	//std::vector<Line> lines;
 	//clock_t initTime = clock();
 private:

@@ -22,6 +22,8 @@ public:
 
 	bool Blit(SDL_Texture* texture, int x, int y, SDL_Rect* section, float speed = 1.0f);
 
+	bool ScaledBlit(SDL_Texture * texture, int x, int y, SDL_Rect * section, float speed, float scaledW, float scaledH);
+
 public:
 	SDL_Renderer* renderer = nullptr;
 	SDL_Rect camera;

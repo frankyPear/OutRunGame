@@ -18,6 +18,8 @@ public:
 
 	bool redrawPoly(RGBA c, short x1, short y1, short w1, short x2, short y2, short w2);
 
+	bool redrawPoly2(RGBA c, short x1, short y1, short w1, short x2, short y2, short w2);
+
 	void reDrawRoad();
 
 	void ChangeAltitude(float & altitudeVariation, float targetVariation, int currentSegment, int startingSegment, int endSegment, int heldSegments);
@@ -25,6 +27,8 @@ public:
 	void TimeManager();
 
 	void UserInterface();
+
+	void scenarioBegin();
 
 	//bool reDraw(int red, int green, int blue, int alpha, float lineWorldX, float lineWorldY, float lineWorldW, float lineScreenX, float lineScreenY, float lineScreenZ);
 	bool CleanUp();
@@ -42,11 +46,32 @@ public:
 
 	//
 	SDL_Texture* Uinterface = nullptr;
+	SDL_Texture* Stage1 = nullptr;
+
 	SDL_Rect markerUITime;
 	SDL_Rect markerUIScore;
 	SDL_Rect markerUILap;
 	SDL_Rect markerUIMap;
 	SDL_Rect markerKMh;
+	
+	//Escenario
+	SDL_Rect gradas;
+	SDL_Rect palmatreeSmall;
+	SDL_Rect palmatreeBig;
+	Animation ocean;
+	SDL_Rect rightPanel;
+	SDL_Rect leftPanel;
+	SDL_Rect start;
+	SDL_Rect finish;
+	SDL_Rect house1;
+	SDL_Rect house2;
+	//SDL_Rect check;
+	Animation trafficLight;
+	SDL_Rect surfer;
+	Animation flag;
+	SDL_Rect people1;
+	SDL_Rect people2;
+	SDL_Rect harrow;
 	//
 	int minuteLap;
 
@@ -54,6 +79,8 @@ public:
 	int secondsToQuit;
 	int secondsLap;
 	int secondsAux;
+
+	int countCurve = 0;
 
 	int miliSecondsLap;
 
@@ -65,6 +92,8 @@ public:
 
 	Animation logo;
 	Animation playerAnimation;
+	Animation manAnimation;
+	Animation womanAnimation;
 	unsigned int music2;
 	int position = 0;
 	bool downOk = false;

@@ -69,22 +69,9 @@ finalize = false;
 clock_t initT = clock();
 initTimer = initT;
 
+countRescaled = 0;
 
 }
-
-//struct Line {
-//	float xc, yc, zc;
-//	float X, Y, W;
-//	float scale;
-//	Line() { xc = yc = zc = 0; }
-//	//-->from world to screen
-//	void projection(int camX, int camY, int camZ) {
-//		scale = camD / (zc - camZ);
-//		X = (1 + scale*(xc - camX)) * SCREEN_WIDTH / 2;
-//		Y = (1 + scale*(xc - camX)) * SCREEN_HEIGHT / 2;
-//		W = scale* roadW * SCREEN_WIDTH / 2;
-//	}
-//};
 
 ModuleSceneSega::~ModuleSceneSega()
 {}
@@ -97,11 +84,9 @@ bool ModuleSceneSega::Start()
 	graphics = App->textures->Load(SEGAPATH);
 	IntroOutrun = App->textures->Load(INTROPATH);
 	logoOutrun = App->textures->Load(LOGOPATH);
-	App->audio->PlayMusic(SOUNDBREEZEPATH, 1.0f);
-//	music2 = App->audio->LoadFx("Sound\\01-Magical-Sound-Shower.ogg");
-//	App->audio->PlayFx(music2, 1);
+	//App->audio->PlayMusic(SOUNDBREEZEPATH, 1.0f);
 	
-	secondsToQuit = 10;
+	secondsToQuit = 5;
 	return true;
 }
 // UnLoad assets
@@ -114,15 +99,14 @@ bool ModuleSceneSega::CleanUp()
 
 	return true;
 }
-/*Proves*/
-//void drawQuad(SDL_Rect &g, tColorY c, int x1, int y1, int w1,int x2, int y2, int w2) {
-//	ConvexShape shape
-//};
+
 // Update: draw background
 update_status ModuleSceneSega::Update()
 {
+	countRescaled++;
 	if (!finalize) {
 		//App->renderer->Blit(graphics, 216, 200, &(logo.GetCurrentFrame()), 0.25f);
+		App->renderer->Blit(graphics, (SCREEN_WIDTH / 2) - (208 / 2), (SCREEN_HEIGHT / 2) - (64 / 2), &(logo.GetCurrentFrame()), 0.40f);
 		
 		secondsPassed = (clock() - initTimer) / CLOCKS_PER_SEC;
 	}
@@ -130,24 +114,27 @@ update_status ModuleSceneSega::Update()
 		/*Fonts*/
 		//App->fonts->PrintCharacter(App->fonts->pinkFonts, 0, 0, "SERVICE GAMES!");
 		secondsPassed = (clock() - initTimer) / CLOCKS_PER_SEC;
+
+
 	}
 	
 	//logoSega//
-	App->renderer->Blit(graphics, (SCREEN_WIDTH / 2) - (208 / 2), (SCREEN_HEIGHT / 2) - (64 / 2), &(logo.GetCurrentFrame()), 0.40f);
-	//App->renderer->Blit(fonts1, 400, 500, NULL);
-	if (secondsPassed >= secondsToQuit) {
+	
+	if (secondsPassed >= secondsToQuit ){//&& !finalize) {
 		finalize = true;
 		
 		/*Descomentar*/
-		App->renderer->Blit(IntroOutrun, 0,0, &OutRunHeader, 0.25f);
-		if ((int)secondsPassed % 3 == 0)App->fonts->PrintCharacter(App->fonts->greenFonts, 425, 500, "PRESS START");
-		App->fonts->PrintCharacter(App->fonts->pinkFonts, 100, 700, "CREDIT 0");
-		App->renderer->Blit(logoOutrun, (SCREEN_WIDTH / 2) - (208 / 2)-75, (SCREEN_HEIGHT / 2) - (64 / 2)-100, &(outrunLogo.GetCurrentFrame()), 0.20f);
-		if (secondsPassed >= 20)App->fade->FadeToBlack((Module*)App->scene_music, nullptr, 5.0f);
-		
+		//App->renderer->Blit(IntroOutrun, 0, 0, &OutRunHeader, 0.25f);
+		//if ((int)secondsPassed % 3 == 0)App->fonts->PrintCharacter(App->fonts->greenFonts, 425, 500, "PRESS START");
+		//App->fonts->PrintCharacter(App->fonts->pinkFonts, 100, 700, "CREDIT 0");
+		//App->renderer->Blit(logoOutrun, (SCREEN_WIDTH / 2) - (208 / 2) - 75, (SCREEN_HEIGHT / 2) - (64 / 2) - 100, &(outrunLogo.GetCurrentFrame()), 0.20f);
+		//if (secondsPassed >= 20) {
+		//	App->fade->FadeToBlack((Module*)App->scene_music, nullptr, 5.0f);
+		//	App->textures->Unload(IntroOutrun);
+		//}
 		CleanUp();
 		/*Atajo*/
-		//App->fade->FadeToBlack((Module*)App->scene_stage, nullptr, 10.0f);
+		App->fade->FadeToBlack((Module*)App->scene_stage, nullptr, 10.0f);
 
 
 

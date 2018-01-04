@@ -56,7 +56,6 @@ bool ModuleFonts::CleanUp()
 
 SDL_Rect ModuleFonts::FindCharacter(char characterToFind) {
 	string CharacterMask = FONTMASK;
-	SDL_Rect* Fontposition;
 	SDL_Rect pos = { 0,0,0,0};
 	int count = 0;
 	for each (char c in CharacterMask)
@@ -77,7 +76,6 @@ SDL_Rect ModuleFonts::FindCharacter(char characterToFind) {
 
 SDL_Rect ModuleFonts::FindNumber(char characterToFind) {
 	string CharacterMask = NUMBERMASK;
-	SDL_Rect* Fontposition;
 	SDL_Rect pos = { 0,0,0,0 };
 	int count = 0;
 	for each (char c in CharacterMask)
@@ -191,22 +189,22 @@ void ModuleFonts::PrintCharacter(SDL_Texture* font, int positionX, int positionY
 	SDL_Texture* fontToPrint = font;
 	SDL_Rect printRect;
 	printRect.x = positionX;
-	printRect.y = positionY;
+	printRect.y = positionY-5;
 
 	for each (char character in textToPrint)
 	{
 		SDL_Rect charPointer = FindCharacter(character);
 
 		if (&charPointer != nullptr) {
-			printRect.h = charPointer.h;
-			printRect.w = charPointer.w;
+			printRect.h = charPointer.h*1.5;
+			printRect.w = charPointer.w*1.5;
 			if (character == ':')printRect.y -= 5;
 			if (SDL_RenderCopy(App->renderer->renderer, fontToPrint, &charPointer, &printRect) != 0)
 			{
 				LOG("Cannot blit to screen. SDL_RenderCopy error: %s", SDL_GetError());
 			}
-			printRect.y = positionY;
-			printRect.x += 17;
+			printRect.y = positionY - 5;
+			printRect.x += 20;
 		}
 	}
 }

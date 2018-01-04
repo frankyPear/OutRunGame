@@ -8,7 +8,7 @@ class Line
 public:
 
 	int segL = 200;
-	float camD = 0.84;
+	double camD = 0.84;
 	int roadW = 2000;
 	float xc, yc, zc;
 	float X, Y, W;
@@ -20,7 +20,7 @@ public:
 	float curve;
 	//-->from world to screen
 	void projection(int camX, int camY, int camZ) {
-		scale = camD / (zc - camZ);
+		scale = (float)(camD / (zc - camZ));
 		X = (1 + scale*(xc - camX)) * SCREEN_WIDTH / 2;
 		Y = (1 - scale*(yc - camY)) * SCREEN_HEIGHT /2;
 		W = scale* roadW * SCREEN_WIDTH / 2;
@@ -40,12 +40,15 @@ public:
 		float clipH = destY + destH - clip;
 		if (clipH<0) clipH = 0;
 
-		X += (W * spriteX);
+		destX = X +(W * spriteX);
 		if (clipH >= destH) return;
 
-		sp.h = h - h*clipH / destH;
-		//App->renderer->Blit(tex, X, destY, &sp, 0.f, sp.w*(destW / w), sprite.h*(destH / h));
+		//sp.h = (int)(h - h*clipH / destH);
+		//int spriteScaledH = (int)(sp.h(
+		//int spriteScaledW = (int)(sp.w
 
+		App->renderer->Blit(tex, X, destY, &sp, 0.f);//, sp.w*(destW / w), sp.h*(destH / h));
+		//App->renderer->Blit(playerimage, (SCREEN_WIDTH / 2) - (208 / 2) + 76, (SCREEN_HEIGHT - 80), &(playerAnimation.GetCurrentFrame()), 0.25f);
 	}
 
 

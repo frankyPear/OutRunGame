@@ -116,3 +116,35 @@ bool ModuleRender::Blit(SDL_Texture* texture, int x, int y, SDL_Rect* section, f
 
 	return ret;
 }
+
+// Blit to screen
+bool ModuleRender::ScaledBlit(SDL_Texture* texture, int x, int y, SDL_Rect* section, float speed, float scaledW, float scaledH)
+{
+	bool ret = true;
+	SDL_Rect rect;
+	rect.x = (int)(camera.x * speed) + x * SCREEN_SIZE;
+	rect.y = (int)(camera.y * speed) + y * SCREEN_SIZE;
+
+	if (section != NULL)
+	{
+		rect.w = section->w;
+		rect.h = section->h;
+	}
+	else
+	{
+		SDL_QueryTexture(texture, NULL, NULL, &rect.w, &rect.h);
+	}
+	
+	if(scaledW!=1)rect.w *= scaledW;
+	else rect.w *= SCREEN_SIZE*scaledW;
+	if(scaledH!=1)rect.h *= scaledH;
+	else rect.w *= SCREEN_SIZE*scaledW;
+
+	if (SDL_RenderCopy(renderer, texture, section, &rect) != 0)
+	{
+		LOG("Cannot blit to screen. SDL_RenderCopy error: %s", SDL_GetError());
+		ret = false;
+	}
+
+	return ret;
+}

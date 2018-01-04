@@ -78,34 +78,37 @@ bool ModuleSceneMusic::CleanUp()
 // Update: draw background
 update_status ModuleSceneMusic::Update()
 {
-	secondsPassed = (clock() - initTimer) / CLOCKS_PER_SEC;
-	switch (musicCount)
-	{
-	case 0:
-		App->renderer->Blit(magicalTexture, 0, 0, &magicalRect, 0.25f);
-		break;
-	case 1:
-		App->renderer->Blit(breezeTexture, 0, 0, &breezeRect, 0.25f);
-		break;
-	case 2:
-		App->renderer->Blit(waveTexture, 0, 0, &waveRect, 0.25f);
-		break;
-	case 3:
-		App->renderer->Blit(beatTexture, 0, 0, &beatRect, 0.25f);
-		break;
-	default:
-		musicCount = 0;
-		break;
-	}
-	
-	if ((int)secondsPassed % 3 == 0)App->fonts->PrintCharacter(App->fonts->greenFonts, 425, 500, "PRESS SPACE BUTTON");
-	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_DOWN)musicCount -= 1;
-	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_DOWN)musicCount += 1;
-	if (musicCount < 0)musicCount = 3;
-	if (musicCount > 3)musicCount = 0;
-	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
-		App->fade->FadeToBlack((Module*)App->scene_stage, nullptr, 10.0f);
-		CleanUp();
+	if (!finalize) {
+		secondsPassed = (clock() - initTimer) / CLOCKS_PER_SEC;
+		switch (musicCount)
+		{
+		case 0:
+			App->renderer->Blit(magicalTexture, 0, 0, &magicalRect, 0.25f);
+			break;
+		case 1:
+			App->renderer->Blit(breezeTexture, 0, 0, &breezeRect, 0.25f);
+			break;
+		case 2:
+			App->renderer->Blit(waveTexture, 0, 0, &waveRect, 0.25f);
+			break;
+		case 3:
+			App->renderer->Blit(beatTexture, 0, 0, &beatRect, 0.25f);
+			break;
+		default:
+			musicCount = 0;
+			break;
+		}
+
+		if ((int)secondsPassed % 3 == 0)App->fonts->PrintCharacter(App->fonts->greenFonts, 425, 500, "PRESS SPACE BUTTON");
+		if (App->input->GetKey(SDL_SCANCODE_A) == KEY_DOWN)musicCount -= 1;
+		if (App->input->GetKey(SDL_SCANCODE_D) == KEY_DOWN)musicCount += 1;
+		if (musicCount < 0)musicCount = 3;
+		if (musicCount > 3)musicCount = 0;
+		if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
+			App->fade->FadeToBlack((Module*)App->scene_stage, nullptr, 10.0f);
+			finalize = true;
+			CleanUp();
+		}
 	}
 	return UPDATE_CONTINUE;
 }
