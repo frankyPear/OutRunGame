@@ -59,6 +59,7 @@ bool ModuleSceneMusic::Start()
 	beatTexture = App->textures->Load(BEATPATH);
 	//music2 = App->audio->LoadFx("Sound\\02-Passing-Breeze.wav");
 	//App->audio->PlayFx(music2, 1);
+	finalize = false;
 	musicCount = 0;
 	secondsToQuit = 10;
 	return true;
@@ -78,7 +79,7 @@ bool ModuleSceneMusic::CleanUp()
 // Update: draw background
 update_status ModuleSceneMusic::Update()
 {
-	if (!finalize) {
+//	if (!finalize) {
 		secondsPassed = (clock() - initTimer) / CLOCKS_PER_SEC;
 		switch (musicCount)
 		{
@@ -104,11 +105,11 @@ update_status ModuleSceneMusic::Update()
 		if (App->input->GetKey(SDL_SCANCODE_D) == KEY_DOWN)musicCount += 1;
 		if (musicCount < 0)musicCount = 3;
 		if (musicCount > 3)musicCount = 0;
-		if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
-			App->fade->FadeToBlack((Module*)App->scene_stage, nullptr, 10.0f);
-			finalize = true;
-			CleanUp();
+		if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && App->fade->isFading() == false) {
+			App->fade->FadeToBlack((Module*)App->scene_stage, this);
+			//finalize = true;
+			//CleanUp();
 		}
-	}
+	//}
 	return UPDATE_CONTINUE;
 }

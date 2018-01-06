@@ -351,8 +351,9 @@ bool ModuleSceneStage::Start()
 	Stage1 = App->textures->Load("Stage\\Stage1.png");
 	playerimage = App->textures->Load("player.png");
 	Uinterface = App->textures->Load(MARKERPATH);
-	App->fonts->PrintVelocity(App->fonts->velocity, 225, 70, "000");
-	//music2 = App->audio->LoadFx("Sound\\01-Magical-Sound-Shower.ogg");
+	//App->fonts->PrintVelocity(App->fonts->velocity, 225, 70, "000");
+	//if (App->audio->IsEnabled()==false) App->audio->Start();
+	//App->audio->PlayMusic(SOUNDBREEZEPATH, 1.0f);
 	//App->audio->PlayFx(music2, 1);
 
 	score = 0;
@@ -375,69 +376,80 @@ bool ModuleSceneStage::Start()
 bool ModuleSceneStage::CleanUp()
 {
 	LOG("Unloading sega scene");
+	App->audio->CleanUp();
 	App->textures->Unload(Uinterface);
+	App->textures->Unload(playerimage);
+	App->textures->Unload(Stage1);
+	App->textures->Unload(landscape);
+
 	return true;
 }
 
 update_status ModuleSceneStage::Update()
 {
 	//Timer
-	TimeManager();
+	if (TimePlaying()) {
 
-	if (App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
-	{
-		if (!HiVelocity) {
-			pos += 100;
-			score += 20;
-			vel += 1;
-			auxPos = pos;
-			if (vel >= 120 && vel<130)vel = 120;
-			if (vel > 130)vel -=20;
+		if (App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
+		{
+			if (!HiVelocity) {
+				pos += 100;
+				score += 20;
+				vel += 1;
+				auxPos = pos;
+				if (vel >= 120 && vel < 130)vel = 120;
+				if (vel > 130)vel -= 20;
+			}
+			else {
+				pos += 200;
+				score += 40;
+				vel += 2;
+				auxPos = pos;
+				if (vel >= 300)vel = 300;
+
+			}
 		}
 		else {
-			pos += 200;
-			score += 40;
-			vel += 2;
-			auxPos = pos;
-			if (vel >= 300)vel = 300;
-			
+			vel -= 5;
+			if (vel <= 0) {
+				vel = 0;
+			}
+			else {
+				if (!HiVelocity)pos += 100;
+				else pos += 200;
+			}
+			if (vel <= 120)HiVelocity = false;
 		}
-	}
-	else {
-		vel -= 5;
-		if (vel <= 0) {
-			vel = 0;
+		if (App->input->GetKey(SDL_SCANCODE_A) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
+		{
+			if (!HiVelocity)playerY -= 45;
+			else playerY -= 85;
 		}
-		else {
-			if (!HiVelocity)pos += 100;
-			else pos += 200;
-		}
-		if (vel <= 120)HiVelocity = false;
-	}
-	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
-	{
-		if (!HiVelocity)playerY -= 45;
-		else playerY -= 85;
-	}
-	
-	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
-	{
-		if (!HiVelocity)playerY -= 45;
-		playerY += 85;
-	}
-	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)// || App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
-	{
-		if (!HiVelocity)HiVelocity = true;
-		else HiVelocity = false;
-	}
-	if (playerY > 3500)playerY = 3500;
-	if (playerY < -3500)playerY = -3500;
 
+		if (App->input->GetKey(SDL_SCANCODE_D) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
+		{
+			if (!HiVelocity)playerY -= 45;
+			playerY += 85;
+		}
+		if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)// || App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
+		{
+			if (!HiVelocity)HiVelocity = true;
+			else HiVelocity = false;
+		}
+		if (playerY > 3500)playerY = 3500;
+		if (playerY < -3500)playerY = -3500;
+	}
+	else {		
+		SDL_Delay(2000);
+		//App->scene_sega->finalize = false;
+		if(App->fade->isFading() == false)App->fade->FadeToBlack((Module*)App->scene_sega, this);
+	}
 	//controlVelocity();
 
 	reDrawRoad();
 	//App->renderer->Blit(landscape, 0, -25, &background, 1);
 	//scenarioBegin();
+
 	UserInterface();
 	App->renderer->ScaledBlit(playerimage, (SCREEN_WIDTH / 2) - 124, (SCREEN_HEIGHT - 150), &(App->player->playerAnimation.GetCurrentFrame()), 0.25f, 3, 3);
 	App->renderer->ScaledBlit(playerimage, (SCREEN_WIDTH / 2) - 65, (SCREEN_HEIGHT - 150), &(App->player->manAnimation.GetCurrentFrame()), 0.25f, 3, 3);
@@ -559,7 +571,7 @@ void ModuleSceneStage::reDrawRoad()
 				lines[n%N].DrawCars(Cars[lines[n%N].position + 1]->cars, Stage1);
 			}
 		}
-		
+		if(!TimePlaying())App->fonts->PrintCharacter(App->fonts->purpleFonts, 450, 500, "GAME OVER!");
 }
 
 void ModuleSceneStage::ChangeAltitude(float &altitudeVariation, float targetVariation, int currentSegment, int startingSegment, int endSegment, int heldSegments) {
@@ -577,7 +589,7 @@ void ModuleSceneStage::ChangeAltitude(float &altitudeVariation, float targetVari
 	}
 }
 
-void ModuleSceneStage::TimeManager() {
+bool ModuleSceneStage::TimePlaying() {
 	secondsPassed = (clock() - initTimer) / CLOCKS_PER_SEC;
 	if (secondsAux != secondsPassed) {
 		secondsAux = secondsPassed;
@@ -591,6 +603,8 @@ void ModuleSceneStage::TimeManager() {
 		minuteLap++;
 	}
 	if (miliSecondsLap == 60)miliSecondsLap = 0;
+	if (secondsToQuit <= 0)return false;
+	if (secondsToQuit > 0)return true;
 }
 
 void ModuleSceneStage::UserInterface() {

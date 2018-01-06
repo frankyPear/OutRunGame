@@ -34,7 +34,9 @@ public:
 
 	void ChangeAltitude(float & altitudeVariation, float targetVariation, int currentSegment, int startingSegment, int endSegment, int heldSegments);
 
-	void TimeManager();
+	bool TimePlaying();
+
+	//void TimeManager();
 
 	void UserInterface();
 
