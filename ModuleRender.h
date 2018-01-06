@@ -24,7 +24,7 @@ public:
 
 	bool ScaledBlit(SDL_Texture * texture, int x, int y, SDL_Rect * section, float speed, float scaledW, float scaledH);
 	
-	bool BlitObjects(SDL_Texture* texture, int x, int y, SDL_Rect* section, float speed, int scW, int scH);
+	bool BlitObjects(SDL_Texture* texture, int x, int y, SDL_Rect* section, float speed, int scW, int scH, int elevate);
 
 public:
 	SDL_Renderer* renderer = nullptr;

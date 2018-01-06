@@ -117,12 +117,12 @@ bool ModuleRender::Blit(SDL_Texture* texture, int x, int y, SDL_Rect* section, f
 	return ret;
 }
 
-bool ModuleRender::BlitObjects(SDL_Texture* texture, int x, int y, SDL_Rect* section, float speed, int scW,int scH)
+bool ModuleRender::BlitObjects(SDL_Texture* texture, int x, int y, SDL_Rect* section, float speed, int scW,int scH,int elevate)
 {
 	bool ret = true;
 	SDL_Rect rect;
 	rect.x = (int)(camera.x * speed) + x * SCREEN_SIZE;
-	rect.y = (int)(camera.y * speed) + y * SCREEN_SIZE;
+	rect.y = (int)(camera.y * speed) + y * SCREEN_SIZE + elevate;
 
 	if (section != NULL)
 	{

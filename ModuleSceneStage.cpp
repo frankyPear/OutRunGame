@@ -79,7 +79,8 @@ ModuleSceneStage::ModuleSceneStage(bool start_enabled) : Module(start_enabled)
 	lppos = Rects.size() - 1;
 
 	Rect * StartFlag = new Rect();
-	StartFlag->rect={339, 256, 59, 111};
+	StartFlag->rect = { 340, 2,587 , 75 };
+//	StartFlag->rect={339, 256, 59, 111};
 	Rects.push_back(StartFlag);
 	sfpos = Rects.size() - 1;
 
@@ -104,14 +105,16 @@ ModuleSceneStage::ModuleSceneStage(bool start_enabled) : Module(start_enabled)
 	surpos = Rects.size() - 1;
 
 	Rect * People1 = new Rect();
-	People1->rect = { 528, 720, 238, 161 };
+	//People1->rect = { 528, 720, 238, 161 };
+	People1->rect = { 529, 601, 148, 226 };
 	Rects.push_back(People1);
-	surpos = Rects.size() - 1;
+	peopos1 = Rects.size() - 1;
 
 	Rect * People2 = new Rect();
-	People2->rect = { 786, 730, 195, 130 };
+	//People2->rect = { 786, 730, 195, 130 };
+	People2->rect = { 703, 717, 139, 95 };
 	Rects.push_back(People2);
-	surpos = Rects.size() - 1;
+	peopos2 = Rects.size() - 1;
 
 	Rect * Harrow = new Rect();
 	Harrow->rect = { 419, 183, 187, 64 };
@@ -178,24 +181,39 @@ ModuleSceneStage::ModuleSceneStage(bool start_enabled) : Module(start_enabled)
 		Line line;
 		line.zc = (float)i * 100;
 
-		if (0<i && i<780) {	
-			if (i<390) {
+		if (0<i && i<780) {
+			if (i == 24) {
+				line.position = peopos1;
+				line.spriteX = -0.8;
+			}
+			if (i == 26) {
+				line.position = peopos2;
+				line.spriteX = 0.8;
+			}
+			if (i == 25) {
+				line.position = sfpos;
+				line.spriteX = 0;
+				line.elevate = -250;
+			}
+			if (i<390 && (i>=24 && i<=26)) {
 				if (i % 20 == 0) {
 					line.position = harrowpos;
 					line.spriteX = -1.5;
 					line.scale = 3;
+					line.elevate = -10;
 				}
 				if (i % 21 == 0) {
 					line.position = ptbpos;
 					line.spriteX = 1.5;
+					line.elevate = -10;
 				}
 			}
 			else {
-				if (i % 20 == 0) {
+				if (i % 20 == 0 (i >= 24 && i <= 26)) {
 					line.position = ptspos;
 					line.spriteX = 1.5;
 				}
-				if (i % 21 == 0) {
+				if (i % 21 == 0 (i >= 24 && i <= 26)) {
 					line.position = ptspos;
 					line.spriteX = -1.5;
 				}
@@ -217,6 +235,7 @@ ModuleSceneStage::ModuleSceneStage(bool start_enabled) : Module(start_enabled)
 					line.position = rppos;
 					line.spriteX = -1.5;
 				}
+
 			}
 			if (i == 1559) lastValue = line.yc;
 			if (i>1200)line.curve = NOTCURVE;
@@ -472,7 +491,7 @@ void ModuleSceneStage::reDrawRoad()
 	int startPos = seg_pos / 100;
 	int camH = (int)(1500 + lines[startPos].yc);
 	float maxy = SCREEN_HEIGHT;
-	App->renderer->Blit(landscape, 0, -50, &background, 1);
+	App->renderer->Blit(landscape, 0, -150, &background, 1);
 	for (int n = startPos; n < startPos + 300; n++) {
 		Line &current = lines[n%N];
 
@@ -532,7 +551,7 @@ void ModuleSceneStage::reDrawRoad()
 
 		for (int n = startPos + 199; n >= startPos; n--) {
 			if (lines[n%N].position != -1) {
-				lines[n%N].DrawObject(Rects[lines[n%N].position]->rect, Stage1);
+				lines[n%N].DrawObject(Rects[lines[n%N].position]->rect, Stage1, lines[n%N].elevate);
 			}		
 		}
 		for (int n = startPos + 199; n >= startPos; n--) {
