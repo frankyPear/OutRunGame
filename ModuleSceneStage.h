@@ -6,6 +6,16 @@
 #include "Globals.h"
 
 struct SDL_Texture;
+struct Rect {
+	SDL_Rect rect;
+};
+struct Cars {
+	SDL_Rect cars;
+	int hitX = 0;
+	int hitXWidth = 0;
+	//bool small = false;
+	SDL_Rect impactBox;
+};
 
 class ModuleSceneStage : public Module
 {
@@ -30,6 +40,8 @@ public:
 
 	void scenarioBegin();
 
+	void controlVelocity();
+
 	//bool reDraw(int red, int green, int blue, int alpha, float lineWorldX, float lineWorldY, float lineWorldW, float lineScreenX, float lineScreenY, float lineScreenZ);
 	bool CleanUp();
 
@@ -47,6 +59,8 @@ public:
 	//
 	SDL_Texture* Uinterface = nullptr;
 	SDL_Texture* Stage1 = nullptr;
+	SDL_Rect* objectsStage1 = nullptr;
+
 
 	SDL_Rect markerUITime;
 	SDL_Rect markerUIScore;
@@ -56,23 +70,43 @@ public:
 	
 	//Escenario
 	SDL_Rect gradas;
+	int gradapos;
 	SDL_Rect palmatreeSmall;
+	int ptspos;
 	SDL_Rect palmatreeBig;
+	int ptbpos;
 	Animation ocean;
-	SDL_Rect rightPanel;
-	SDL_Rect leftPanel;
+	int oceanpos;
+	int oceanpos2;
+	//SDL_Rect rightPanel;
+	int rppos;
+	//SDL_Rect leftPanel;
+	int lppos;
 	SDL_Rect start;
-	SDL_Rect finish;
-	SDL_Rect house1;
-	SDL_Rect house2;
+	int sfpos;
+	//SDL_Rect finish;
+	int ffpos;
+	//SDL_Rect house1;
+	int h1pos;
+	//SDL_Rect house2;
+	int h2pos;
 	//SDL_Rect check;
 	Animation trafficLight;
+	int tlpos;
 	SDL_Rect surfer;
-	Animation flag;
-	SDL_Rect people1;
-	SDL_Rect people2;
-	SDL_Rect harrow;
+	int surpos;
+	SDL_Rect flag;
+	int flagpos;
+	//SDL_Rect people1;
+	int peopos1;
+	//SDL_Rect people2;
+	int peopos2;
+	//SDL_Rect harrow;
+	int harrowpos;
+	//SDL_Rect Ocean1;
+	int ocean1;
 	//
+	int countSequence = -1;
 	int minuteLap;
 
 	int secondsPassed;
@@ -91,9 +125,7 @@ public:
 
 
 	Animation logo;
-	Animation playerAnimation;
-	Animation manAnimation;
-	Animation womanAnimation;
+
 	unsigned int music2;
 	int position = 0;
 	bool downOk = false;
@@ -103,7 +135,9 @@ public:
 	const int ColourRoad2[4] = { 105, 105, 105, 255 };
 	int N = 0;
 	int pos;
+	int auxPos;
 	int playerX;
+	int playerY;
 	int seg_pos;
 	const float MAX_LANDSCAPE_ALTITUDE = 273.0f;
 	float landscapePositionX = 0.0f;
@@ -111,35 +145,19 @@ public:
 	float foregroundPositionX = 0.0f;
 	int landscapeParallaxFactor = 300;
 	int foregroundParallaxFactor = 200;
+	int score;
 private:
 	int maxPuntuation;
 	int stage;
 	float time;
-	int score;
+	float lastValue;
 	int speed;
 	float modAlture = 0.0f;
 	float currentAlture = 0.0f;
-
-
-	//filledPolygonRGBA(App->renderer->renderer, x, y, 4, 128, 128, 128, 255);
-	//107 *3  O 105*3 ROAD
-//	filledPolygonRGBA(App->renderer->renderer, x2, y, 4, 192, 192, 160, 255);
-//}
-//filledPolygonRGBA(App->renderer->renderer, x3, y, 4, 255, 0, 0, 255);
-//blank for lines filledPolygonRGBA(App->renderer->renderer, x, y, 4, 225, 225, 225, 255);
-//GREEN 1 filledPolygonRGBA(App->renderer->renderer, x, y, 4, 255, 255, 255, 155);
-//RED 255,0,0,255
-//filledPolygonRGBA(App->renderer->renderer, x, y, 4, 254, 233, 148, 155);
-//filledPolygonRGBA(App->renderer->renderer, x, y, 4, 254, 243, 201, 155);
-//filledPolygonRGBA(App->renderer->renderer, x, y, 4, 236, 226, 198, 155);
-//filledPolygonRGBA(App->renderer->renderer, x, y, 4, 245, 222, 179, 155);
-//filledPolygonRGBA(App->renderer->renderer, x, y, 4, 253, 224, 170, 155);
-//128, 128, 128, 255
-//225, 225, 225, 255
-//192, 192, 160, 255
-//255, 255, 255, 255
-
-	//std::vector<Line> lines;
+	bool HiVelocity;
+	int vel;
+	std::vector<Rect*> Rects;
+	std::vector<Cars*> Cars;
 	//clock_t initTime = clock();
 private:
 	//clock_t initTime;

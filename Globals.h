@@ -36,7 +36,12 @@
 #define SOUNDWAVEPATH "Sound\\03-Splash-Wave.ogg"
 #define SOUNDLASTWAVEPATH "Sound\\04-Last-Wave.ogg"
 #define SOUNDBEATPATH "Sound\\05-Step-on-Beat"
-#define CLOCKS_PER_MS (CLOCKS_PER_SEC /1000)
+#define FRAMES_PER_SECOND 60
+#define NOTCURVE 0
+#define LOWCURVELEFT -2
+#define HIGHCURVELEFT -4
+#define LOWCURVERIGHT 2
+#define HIGHCURVERIGHT 2
 #define ROAD1 RGBA(107, 107, 107, 255);
 #define ROAD2 RGBA(128, 128, 128, 255);
 #define BLANK RGBA(255,255,255,255);

@@ -68,14 +68,14 @@ update_status ModuleInput::PreUpdate()
 		}
 	}
 
-	for(int i = 0; i < NUM_MOUSE_BUTTONS; ++i)
-	{
-		if(mouse_buttons[i] == KEY_DOWN)
-			mouse_buttons[i] = KEY_REPEAT;
-
-		if(mouse_buttons[i] == KEY_UP)
-			mouse_buttons[i] = KEY_IDLE;
-	}
+//	for(int i = 0; i < NUM_MOUSE_BUTTONS; ++i)
+//	{
+//		if(mouse_buttons[i] == KEY_DOWN)
+//			mouse_buttons[i] = KEY_REPEAT;
+//
+//		if(mouse_buttons[i] == KEY_UP)
+//			mouse_buttons[i] = KEY_IDLE;
+//	}
 
 	while(SDL_PollEvent(&event) != 0)
 	{
@@ -106,11 +106,11 @@ update_status ModuleInput::PreUpdate()
 			break;
 
 			case SDL_MOUSEBUTTONDOWN:
-				mouse_buttons[event.button.button - 1] = KEY_DOWN;
+				//mouse_buttons[event.button.button - 1] = KEY_DOWN;
 			break;
 
 			case SDL_MOUSEBUTTONUP:
-				mouse_buttons[event.button.button - 1] = KEY_UP;
+				//mouse_buttons[event.button.button - 1] = KEY_UP;
 			break;
 
 			case SDL_MOUSEMOTION:

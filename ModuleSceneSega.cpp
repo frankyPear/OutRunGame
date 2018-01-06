@@ -86,7 +86,7 @@ bool ModuleSceneSega::Start()
 	logoOutrun = App->textures->Load(LOGOPATH);
 	//App->audio->PlayMusic(SOUNDBREEZEPATH, 1.0f);
 	
-	secondsToQuit = 5;
+	secondsToQuit = 1;
 	return true;
 }
 // UnLoad assets
@@ -134,8 +134,7 @@ update_status ModuleSceneSega::Update()
 		//}
 		CleanUp();
 		/*Atajo*/
-		App->fade->FadeToBlack((Module*)App->scene_stage, nullptr, 10.0f);
-
+		App->fade->FadeToBlack((Module*)App->scene_stage, nullptr, 0.25f);
 
 
 		//int result = pixelRGBA(App->renderer->renderer, 200, 200, 255, 255, 255, 255);

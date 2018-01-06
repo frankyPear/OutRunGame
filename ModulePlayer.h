@@ -21,9 +21,39 @@ public:
 public:
 
 	SDL_Texture* graphics = nullptr;
+	float playerX = 0;
+	float playerY = 0;
+	double speed;
 	Animation idle;
 	Animation backward;
-	Animation ryu;
+	Animation playerAnimation;
+	Animation manAnimation;
+	Animation womanAnimation;
+//CAR1 - Animations
+	Animation car1Left;
+	Animation car1Left1;
+	Animation car1Left2;
+	Animation car1Right;
+	Animation car1Right1;
+	Animation car1Right2;
+//CAR2 - Animations
+	Animation car2Left;
+	Animation car2Left1;
+	Animation car2Left2;
+	Animation car2Right;
+	Animation car2Right1;
+	Animation car2Right2;
+//TRUCK - Animations
+	Animation truckLeft;
+	Animation truckLeft1;
+	Animation truckLeft2;
+	Animation truckRight;
+	Animation truckRight1;
+	Animation truckRight2;
+
+
+
+	//Animation ryu;
 	iPoint position;
 	bool directionleft = false; //0 stop //1 left // 2 right
 };
