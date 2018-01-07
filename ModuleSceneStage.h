@@ -115,6 +115,7 @@ public:
 	int ffpos;
 	int h1pos;
 	int h2pos;
+	bool finish;
 	Animation trafficLight;
 	int tlpos;
 	SDL_Rect surfer;

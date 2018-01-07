@@ -38,6 +38,9 @@
 #define SOUNDBEATPATH "Sound\\05-Step-on-Beat"
 #define INPUTLEFT App->input->GetKey(SDL_SCANCODE_A) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT
 #define INPUTRIGHT App->input->GetKey(SDL_SCANCODE_D) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT
+#define SECONDSPASSED (clock() - initTimer) / CLOCKS_PER_SEC
+#define BACKGROUND "Background\\OutRunBackground1.png"
+#define STAGE "Stage\\Stage1.png"
 #define FRAMES_PER_SECOND 60
 #define NOTCURVE 0
 #define LOWCURVELEFT -2
