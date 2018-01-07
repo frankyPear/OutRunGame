@@ -22,8 +22,8 @@
 #define FONTPATHYELLOW "Fonts\\yellowfont.bmp"
 #define MARKERPATH "Fonts\\marker.png"
 #define VELOCITYPATH "Fonts\\velocity.png"
-#define INTROPATH "Background\\OutRunIntro.bmp"
-#define LOGOPATH "Background\\OutRun.bmp"
+#define INTROPATH "Background\\OutRunIntro.png"
+#define LOGOPATH "Background\\OutRun.png"
 #define SEGAPATH "Fonts\\SEGA.png"
 #define FONTMASK "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890.:Ç"
 #define NUMBERMASK "0123456789"
@@ -36,6 +36,8 @@
 #define SOUNDWAVEPATH "Sound\\03-Splash-Wave.ogg"
 #define SOUNDLASTWAVEPATH "Sound\\04-Last-Wave.ogg"
 #define SOUNDBEATPATH "Sound\\05-Step-on-Beat"
+#define INPUTLEFT App->input->GetKey(SDL_SCANCODE_A) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT
+#define INPUTRIGHT App->input->GetKey(SDL_SCANCODE_D) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT
 #define FRAMES_PER_SECOND 60
 #define NOTCURVE 0
 #define LOWCURVELEFT -2

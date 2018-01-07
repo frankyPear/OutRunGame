@@ -105,57 +105,22 @@ update_status ModuleSceneSega::Update()
 {
 
 	if (!finalize) {
-		//App->renderer->Blit(graphics, 216, 200, &(logo.GetCurrentFrame()), 0.25f);
-		App->renderer->Blit(graphics, (SCREEN_WIDTH / 2) - (208 / 2), (SCREEN_HEIGHT / 2) - (64 / 2), &(logo.GetCurrentFrame()), 0.40f);
-		
-		secondsPassed = (clock() - initTimer) / CLOCKS_PER_SEC;
-	}
-	else {
-		/*Fonts*/
-		//App->fonts->PrintCharacter(App->fonts->pinkFonts, 0, 0, "SERVICE GAMES!");
-		secondsPassed = (clock() - initTimer) / CLOCKS_PER_SEC;
+		App->renderer->Blit(graphics, (SCREEN_WIDTH / 2) - (208 / 2), (SCREEN_HEIGHT / 2) - (64 / 2), &(logo.GetCurrentFrame()), 0.40f);		
 	}
 	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && App->fade->isFading() == false) {
 		App->fade->FadeToBlack((Module*)App->scene_music, this);
 	}
 	//logoSega//
-	
-	if (secondsPassed >= secondsToQuit ){//&& !finalize) {
-		//finalize = true;
+	secondsPassed = (clock() - initTimer) / CLOCKS_PER_SEC;
+	if (secondsPassed >= secondsToQuit ){
 		finalize = true;
 		/*Descomentar*/
 		App->renderer->Blit(IntroOutrun, 0, 0, &OutRunHeader, 0.25f);
-		if ((int)secondsPassed % 3 == 0)App->fonts->PrintCharacter(App->fonts->greenFonts, 425, 500, "PRESS START");
+		if ((int)secondsPassed % 3 == 0)App->fonts->PrintCharacter(App->fonts->greenFonts, 325, 500, "PRESS SPACE BUTTON");
 		App->fonts->PrintCharacter(App->fonts->pinkFonts, 100, 700, "CREDIT 0");
 		App->renderer->Blit(logoOutrun, (SCREEN_WIDTH / 2) - (208 / 2) - 75, (SCREEN_HEIGHT / 2) - (64 / 2) - 100, &(outrunLogo.GetCurrentFrame()), 0.20f);
-		//if (secondsPassed >= 10 && App->fade->isFading()==false) {
-		////	App->fade->FadeToBlack((Module*)App->scene_music, nullptr, 5.0f);
-		//	App->fade->FadeToBlack((Module*)App->scene_music, this);
-		//	//App->scene_sega->secondsPassed = 0;
-		//	//finalize = false;
-		//}
-		//finalize = true;
-		//CleanUp();
-		/*Atajo*/
-//		App->fade->FadeToBlack((Module*)App->scene_stage, nullptr, 0.25f);
-		//App->fade->FadeToBlack((Module*)App->scene_stage, this);//App->scene_sega, 3.0f);
-		
-		//CleanUp();
-		//int result = pixelRGBA(App->renderer->renderer, 200, 200, 255, 255, 255, 255);
-
-		//short x[4] = { 300, 325, 350,  275 };
-		//short y[4] = { 325, 325, 390, 390 };
-		//
-		//for (int i = 0; i < 1600; i++) {
-		//	Line line;
-		//	line.zc = i*line.segL;
-		//	lines.push_back(line);
-		//}
-		//int N = lines.size();
-
-		//filledPolygonRGBA(App->renderer->renderer, x, y, 2, 255, 255, 255, 155);
-
-
+		App->fonts->PrintCharacter(App->fonts->lightgreenFonts, 800, 700, "Ç1986 1991");
+		App->fonts->PrintCharacter(App->fonts->lightgreenFonts, 870, 720, "SEGA");
 		return UPDATE_CONTINUE;
 	}
 	return UPDATE_CONTINUE;

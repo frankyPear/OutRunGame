@@ -127,6 +127,7 @@ ModulePlayer::~ModulePlayer()
 bool ModulePlayer::Start()
 {
 	LOG("Loading player");
+	playerimage = App->textures->Load("Stage\\player.png");
 	animations =-1;
 	//graphics = App->textures->Load("ryu4.png"); // arcade version
 
@@ -138,7 +139,7 @@ bool ModulePlayer::CleanUp()
 {
 	LOG("Unloading player");
 
-	App->textures->Unload(graphics);
+	App->textures->Unload(playerimage);
 
 	return true;
 }
@@ -146,53 +147,44 @@ bool ModulePlayer::CleanUp()
 // Update
 update_status ModulePlayer::Update()
 {
+	printPlayer();
+	return UPDATE_CONTINUE;
+}
+void ModulePlayer::printPlayer() {
 	switch (animations)
 	{
 	case 0:
+		App->renderer->ScaledBlit(playerimage, (SCREEN_WIDTH / 2) - 124, (SCREEN_HEIGHT - 150), &(App->player->playerAnimation.GetCurrentFrame()), 0.25f, 3, 3);
+		App->renderer->ScaledBlit(playerimage, (SCREEN_WIDTH / 2) - 65, (SCREEN_HEIGHT - 150), &(App->player->manAnimation.GetCurrentFrame()), 0.25f, 3, 3);
+		App->renderer->ScaledBlit(playerimage, (SCREEN_WIDTH / 2) + 10, (SCREEN_HEIGHT - 149), &(App->player->womanAnimation.GetCurrentFrame()), 0.25f, 3, 3);
 		break;
-	case 1:
+	case 1://lightleft
+		App->renderer->ScaledBlit(playerimage, (SCREEN_WIDTH / 2) - 124, (SCREEN_HEIGHT - 150), &(App->player->playerAnimationLeft1.GetCurrentFrame()), 2.85f, 3, 3);
+		App->renderer->ScaledBlit(playerimage, (SCREEN_WIDTH / 2) - 65, (SCREEN_HEIGHT - 150), &(App->player->manAnimation.GetCurrentFrame()), 2.85f, 3, 3);
+		App->renderer->ScaledBlit(playerimage, (SCREEN_WIDTH / 2) + 5, (SCREEN_HEIGHT - 149), &(App->player->womanAnimation.GetCurrentFrame()), 2.85f, 3, 3);
 		break;
 	case 2:
+		App->renderer->ScaledBlit(playerimage, (SCREEN_WIDTH / 2) - 124, (SCREEN_HEIGHT - 150), &(App->player->playerAnimationLeft2.GetCurrentFrame()), 0.25f, 3, 3);
+		App->renderer->ScaledBlit(playerimage, (SCREEN_WIDTH / 2) - 65, (SCREEN_HEIGHT - 150), &(App->player->manAnimation.GetCurrentFrame()), 0.25f, 3, 3);
+		App->renderer->ScaledBlit(playerimage, (SCREEN_WIDTH / 2) + 5, (SCREEN_HEIGHT - 149), &(App->player->womanAnimation.GetCurrentFrame()), 0.25f, 3, 3);
 		break;
 	case 3:
+		App->renderer->ScaledBlit(playerimage, (SCREEN_WIDTH / 2) - 124, (SCREEN_HEIGHT - 150), &(App->player->playerAnimationRight1.GetCurrentFrame()), 2.85f, 3, 3);
+		App->renderer->ScaledBlit(playerimage, (SCREEN_WIDTH / 2) - 65, (SCREEN_HEIGHT - 150), &(App->player->manAnimation.GetCurrentFrame()), 2.85f, 3, 3);
+		App->renderer->ScaledBlit(playerimage, (SCREEN_WIDTH / 2) + 15, (SCREEN_HEIGHT - 149), &(App->player->womanAnimation.GetCurrentFrame()), 2.85f, 3, 3);
 		break;
 	case 4:
+		App->renderer->ScaledBlit(playerimage, (SCREEN_WIDTH / 2) - 124, (SCREEN_HEIGHT - 150), &(App->player->playerAnimationRight2.GetCurrentFrame()), 0.25f, 3, 3);
+		App->renderer->ScaledBlit(playerimage, (SCREEN_WIDTH / 2) - 65, (SCREEN_HEIGHT - 150), &(App->player->manAnimation.GetCurrentFrame()), 0.25f, 3, 3);
+		App->renderer->ScaledBlit(playerimage, (SCREEN_WIDTH / 2) + 15, (SCREEN_HEIGHT - 149), &(App->player->womanAnimation.GetCurrentFrame()), 0.25f, 3, 3);
 		break;
 	case 5:
 		break;
 	default:
+		App->renderer->ScaledBlit(playerimage, (SCREEN_WIDTH / 2) - 124, (SCREEN_HEIGHT - 150), &(App->player->playerAnimation.GetCurrentFrame()), 0.25f, 3, 3);
+		App->renderer->ScaledBlit(playerimage, (SCREEN_WIDTH / 2) - 65, (SCREEN_HEIGHT - 150), &(App->player->manAnimation.GetCurrentFrame()), 0.25f, 3, 3);
+		App->renderer->ScaledBlit(playerimage, (SCREEN_WIDTH / 2) + 10, (SCREEN_HEIGHT - 149), &(App->player->womanAnimation.GetCurrentFrame()), 0.25f, 3, 3);
 		break;
 	}
-	//if (App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
-	//{
-	//	App->scene_stage->pos += 200;
-	//	App->scene_stage->score += 20;
-	//}
-	//if (App->input->GetKey(SDL_SCANCODE_A) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
-	//{
-	//	playerY -= 85;
-	//}
-	//
-	//if (App->input->GetKey(SDL_SCANCODE_D) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
-	//{
-	//	playerY += 85;
-	//}
 
-	//// TODO 9: Draw the player with its animation
-	//// make sure to detect player movement and change its
-	//// position while cycling the animation(check Animation.h)
-	//if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT){
-	//	directionleft = true;
-	//	App->renderer->Blit(graphics, 193, 109, &(backward.GetCurrentFrame()), 0.10f);
-	//}
-	//else if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT) {
-	//	//directionleft = false;
-	//	playerX += 200;
-	//}
-	//else {
-	//	App->renderer->Blit(graphics, 193, 109, &(idle.GetCurrentFrame()), 0.10f);
-	//}
-
-	//IF PLAYER IDLE EN REPOS ETC ETC
-	return UPDATE_CONTINUE;
 }

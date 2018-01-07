@@ -100,7 +100,8 @@ update_status ModuleSceneMusic::Update()
 			break;
 		}
 
-		if ((int)secondsPassed % 3 == 0)App->fonts->PrintCharacter(App->fonts->greenFonts, 425, 500, "PRESS SPACE BUTTON");
+		if ((int)secondsPassed % 3 == 0)App->fonts->PrintCharacter(App->fonts->greenFonts, 325, 500, "PRESS SPACE BUTTON");
+		App->fonts->PrintCharacter(App->fonts->pinkFonts, 100, 700, "CREDIT 1");
 		if (App->input->GetKey(SDL_SCANCODE_A) == KEY_DOWN)musicCount -= 1;
 		if (App->input->GetKey(SDL_SCANCODE_D) == KEY_DOWN)musicCount += 1;
 		if (musicCount < 0)musicCount = 3;

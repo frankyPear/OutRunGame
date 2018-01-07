@@ -29,6 +29,8 @@ public:
 	// Play a previously loaded WAV
 	bool PlayFx(unsigned int fx, int repeat = 0);
 
+	void QuitSoundtrack(float fade_time);
+
 private:
 
 	Mix_Music*	music = nullptr;

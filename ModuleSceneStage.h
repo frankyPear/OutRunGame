@@ -31,8 +31,6 @@ public:
 
 	bool redrawPoly(RGBA c, short x1, short y1, short w1, short x2, short y2, short w2);
 
-	bool redrawPoly2(RGBA c, short x1, short y1, short w1, short x2, short y2, short w2);
-
 	void reDrawRoad();
 
 	void ChangeAltitude(float & altitudeVariation, float targetVariation, int currentSegment, int startingSegment, int endSegment, int heldSegments);
@@ -74,15 +72,12 @@ public:
 		}
 		if (vel <= 120)HiVelocity = false;
 	}
-
-	//bool reDraw(int red, int green, int blue, int alpha, float lineWorldX, float lineWorldY, float lineWorldW, float lineScreenX, float lineScreenY, float lineScreenZ);
 	bool CleanUp();
 
 public:
 
 	SDL_Texture* graphics = nullptr;
 	SDL_Texture* landscape = nullptr;
-	SDL_Texture* playerimage = nullptr;
 	SDL_Texture* road = nullptr;
 	SDL_Rect ground;
 	SDL_Rect background;

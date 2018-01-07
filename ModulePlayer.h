@@ -16,11 +16,13 @@ public:
 
 	bool Start();
 	update_status Update();
+	void printPlayer();
 	bool CleanUp();
 
 public:
 
-	SDL_Texture* graphics = nullptr;
+	//SDL_Texture* graphics = nullptr;
+	SDL_Texture* playerimage = nullptr;
 	float playerX = 0;
 	float playerY = 0;
 	double speed;
@@ -57,7 +59,7 @@ public:
 	Animation truckRight2;
 
 	int animations;
-
+	int playeranimation;
 	//Animation ryu;
 	iPoint position;
 	bool directionleft = false; //0 stop //1 left // 2 right

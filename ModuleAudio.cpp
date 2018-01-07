@@ -151,3 +151,28 @@ bool ModuleAudio::PlayFx(unsigned int id, int repeat)
 
 	return ret;
 }
+
+// Quit Music
+void ModuleAudio::QuitSoundtrack(float fade_time)
+{
+	//Mix_HaltMusic();
+	
+	if (music != nullptr)
+	{
+		if (fade_time > 0.0f)
+		{
+			Mix_FadeOutMusic((int)(fade_time * 1000.0f));
+		}
+		else
+		{
+			Mix_HaltMusic();
+		}
+	}
+	music = nullptr;
+	//CleanUp();
+	//Init();
+	//Mix_FreeMusic(music);
+	//
+	//Mix_Quit();
+	//Mix_HaltMusic();
+}

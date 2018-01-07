@@ -374,22 +374,21 @@ bool ModuleSceneStage::Start()
 	LOG("Loading sega scene");
 	landscape = App->textures->Load("Background\\OutRunBackground1.png");
 	Stage1 = App->textures->Load("Stage\\Stage1.png");
-	playerimage = App->textures->Load("Stage\\player.png");
 	Uinterface = App->textures->Load(MARKERPATH);
-	//App->fonts->PrintVelocity(App->fonts->velocity, 225, 70, "000");
-	//if (App->audio->IsEnabled()==false) App->audio->Start();
-	//App->audio->PlayMusic(SOUNDBREEZEPATH, 1.0f);
-	//App->audio->PlayFx(music2, 1);
-
+	App->audio->PlayMusic(SOUNDBREEZEPATH, 1.0f);
+	//App->fade->FadeToBlack((Module*)App->player, nullptr);
+	App->player->Start();
 	score = 0;
 	N = lines.size();
 	pos = 0;
 	playerX = 0;
+	playerY = 0;
 	clock_t initT = clock();
 	initTimer = initT;
 	minuteLap = 0;
 	secondsLap = 0;
 	miliSecondsLap = 0;
+	//MODI
 	secondsToQuit = 60;
 	secondsAux = 0;
 	HiVelocity = false;
@@ -401,9 +400,10 @@ bool ModuleSceneStage::Start()
 bool ModuleSceneStage::CleanUp()
 {
 	LOG("Unloading sega scene");
-	App->audio->CleanUp();
+	//App->audio->CleanUp();
+	App->player->CleanUp();
 	App->textures->Unload(Uinterface);
-	App->textures->Unload(playerimage);
+//	App->textures->Unload(playerimage);
 	App->textures->Unload(Stage1);
 	App->textures->Unload(landscape);
 
@@ -424,14 +424,18 @@ update_status ModuleSceneStage::Update()
 		}
 		if (App->input->GetKey(SDL_SCANCODE_A) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
 		{
-			if (!HiVelocity)playerY -= 85;
-			else playerY -= 125;
+			if (!HiVelocity) { if (vel != 0)playerY -= 85; App->player->animations = 1;}
+			else { if(vel!=0)playerY -= 125; App->player->animations = 2;}
+			
 		}
-
-		if (App->input->GetKey(SDL_SCANCODE_D) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
+		else if (App->input->GetKey(SDL_SCANCODE_D) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
 		{
-			if (!HiVelocity)playerY += 85;
-			playerY += 125;
+			if (!HiVelocity) { if (vel != 0)playerY += 85; App->player->animations = 3;}
+			else { if (vel != 0)playerY += 125; App->player->animations = 4;}
+			
+		}
+		else {
+			//App->player->animations = 0;
 		}
 		if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
 		{
@@ -443,10 +447,10 @@ update_status ModuleSceneStage::Update()
 	}
 	else {		
 		SDL_Delay(2000);
-		//App->scene_sega->finalize = false;
+		App->audio->QuitSoundtrack(1.0f);
 		if(App->fade->isFading() == false)App->fade->FadeToBlack((Module*)App->scene_sega, this);
 	}
-	//controlVelocity();
+
 
 	reDrawRoad();
 	//App->renderer->Blit(landscape, 0, -25, &background, 1);
@@ -454,29 +458,8 @@ update_status ModuleSceneStage::Update()
 
 	UserInterface();
 //Posició normal
-	App->renderer->ScaledBlit(playerimage, (SCREEN_WIDTH / 2) - 124, (SCREEN_HEIGHT - 150), &(App->player->playerAnimation.GetCurrentFrame()), 0.25f, 3, 3);
-	App->renderer->ScaledBlit(playerimage, (SCREEN_WIDTH / 2) - 65, (SCREEN_HEIGHT - 150), &(App->player->manAnimation.GetCurrentFrame()), 0.25f, 3, 3);
-	App->renderer->ScaledBlit(playerimage, (SCREEN_WIDTH / 2) + 10, (SCREEN_HEIGHT - 149), &(App->player->womanAnimation.GetCurrentFrame()), 0.25f, 3, 3);
-//LightLeft
-//	App->renderer->ScaledBlit(playerimage, (SCREEN_WIDTH / 2) - 124, (SCREEN_HEIGHT - 150), &(App->player->playerAnimationLeft1.GetCurrentFrame()), 2.85f, 3, 3);
-//	App->renderer->ScaledBlit(playerimage, (SCREEN_WIDTH / 2) - 65, (SCREEN_HEIGHT - 150), &(App->player->manAnimation.GetCurrentFrame()), 2.85f, 3, 3);
-//	App->renderer->ScaledBlit(playerimage, (SCREEN_WIDTH / 2) + 5, (SCREEN_HEIGHT - 149), &(App->player->womanAnimation.GetCurrentFrame()), 2.85f, 3, 3);
-
-// Extreme Left
-//	App->renderer->ScaledBlit(playerimage, (SCREEN_WIDTH / 2) - 124, (SCREEN_HEIGHT - 150), &(App->player->playerAnimationLeft2.GetCurrentFrame()), 0.25f, 3, 3);
-//	App->renderer->ScaledBlit(playerimage, (SCREEN_WIDTH / 2) - 65, (SCREEN_HEIGHT - 150), &(App->player->manAnimation.GetCurrentFrame()), 0.25f, 3, 3);
-//	App->renderer->ScaledBlit(playerimage, (SCREEN_WIDTH / 2) + 5, (SCREEN_HEIGHT - 149), &(App->player->womanAnimation.GetCurrentFrame()), 0.25f, 3, 3);
-
-//LightRight
-//	App->renderer->ScaledBlit(playerimage, (SCREEN_WIDTH / 2) - 124, (SCREEN_HEIGHT - 150), &(App->player->playerAnimationRight1.GetCurrentFrame()), 2.85f, 3, 3);
-//	App->renderer->ScaledBlit(playerimage, (SCREEN_WIDTH / 2) - 65, (SCREEN_HEIGHT - 150), &(App->player->manAnimation.GetCurrentFrame()), 2.85f, 3, 3);
-//	App->renderer->ScaledBlit(playerimage, (SCREEN_WIDTH / 2) + 15, (SCREEN_HEIGHT - 149), &(App->player->womanAnimation.GetCurrentFrame()), 2.85f, 3, 3);
-
-// Extreme Right
-//	App->renderer->ScaledBlit(playerimage, (SCREEN_WIDTH / 2) - 124, (SCREEN_HEIGHT - 150), &(App->player->playerAnimationRight2.GetCurrentFrame()), 0.25f, 3, 3);
-//	App->renderer->ScaledBlit(playerimage, (SCREEN_WIDTH / 2) - 65, (SCREEN_HEIGHT - 150), &(App->player->manAnimation.GetCurrentFrame()), 0.25f, 3, 3);
-//	App->renderer->ScaledBlit(playerimage, (SCREEN_WIDTH / 2) + 15, (SCREEN_HEIGHT - 149), &(App->player->womanAnimation.GetCurrentFrame()), 0.25f, 3, 3);
-
+	//if(vel==0)App->player->animations = 0;
+	App->player->printPlayer();//animations = 0;
 	return UPDATE_CONTINUE;
 
 
@@ -492,44 +475,41 @@ bool ModuleSceneStage::redrawPoly(RGBA c, short x1, short y1, short w1, short x2
 		c.r, c.g, c.b, c.a);
 	return true;
 }
-bool ModuleSceneStage::redrawPoly2(RGBA c, short x1, short y1, short w1, short x2, short y2, short w2)
-{
-	short s[4] = { x1 - w1, x1+w1, (x2 + w2), (x2 - w2) };
-	short t[4] = { y1, y1, y2, y2 };
-
-	filledPolygonRGBA(App->renderer->renderer,
-		s, t,
-		4,
-		c.r, c.g, c.b, c.a);
-	return true;
-}
 void ModuleSceneStage::reDrawRoad()
 {
 	seg_pos = pos;
-	if (pos % 50 != 0)
+	if (pos % 100 != 0)
 	{
-		seg_pos = 50 * (pos / 50);
+		seg_pos = 100 * (pos / 100);
 	}
 	
-	while (seg_pos >= N * 50)
+	while (seg_pos >= N * 100)
 	{
-		seg_pos -= N * 50;
+		seg_pos -= N * 100;
 	}
 	while (seg_pos < 0)
 	{
-		seg_pos += N * 50;
+		seg_pos += N * 100;
 	}
 
 	float x = 0, dx = 0;
 	int startPos = seg_pos / 100;
 	int camH = (int)(1500 + lines[startPos].yc);
 	float maxy = SCREEN_HEIGHT;
+	//App->renderer->Blit(landscape, 0, -150, &background, 1);
 	App->renderer->Blit(landscape, 0, -150, &background, 1);
-	if (lines[startPos + 25 % N].curve == LOWCURVELEFT   && vel!=0) playerY += 25;
-	if (lines[startPos + 25 % N].curve == HIGHCURVELEFT  && vel!=0) playerY += 50;
-	if (lines[startPos + 25 % N].curve == LOWCURVERIGHT  && vel!=0) playerY -= 25;
-	if (lines[startPos + 25 % N].curve == HIGHCURVERIGHT && vel!=0) playerY -= 50;
-	//if (playerY < -2500 || playerY > -2500)vel -= 20;
+	if (vel != 0) {
+		if (lines[startPos + 25 % N].curve == LOWCURVELEFT   && vel != 0 && TimePlaying()) { playerY += 25; App->player->animations = 1; }
+		else
+			if (lines[startPos + 25 % N].curve == HIGHCURVELEFT  && vel != 0 && TimePlaying()) { playerY += 50; App->player->animations = 2; }
+			else
+				if (lines[startPos + 25 % N].curve == LOWCURVERIGHT  && vel != 0 && TimePlaying()) { playerY -= 25; App->player->animations = 3; }
+				else
+					if (lines[startPos + 25 % N].curve == HIGHCURVERIGHT && vel != 0 && TimePlaying()) { playerY -= 50; App->player->animations = 4; } else
+						if (lines[startPos + 25 % N].curve == NOTCURVE && vel != 0 && TimePlaying() && (!INPUTLEFT || !INPUTRIGHT)) { App->player->animations = 0; }//else
+	}
+	//if (lines[startPos + 25 % N].curve == NOTCURVE && vel != 0 && TimePlaying() T) { App->player->animations = 0; }
+		//if (playerY < -2500 || playerY > -2500)vel -= 20;
 	for (int n = startPos; n < startPos + 300; n++) {
 		Line &current = lines[n%N];
 
@@ -554,8 +534,10 @@ void ModuleSceneStage::reDrawRoad()
 		redrawPoly(line, (short)previous.X, (short)previous.Y, (short)(previous.W*1.15), (short)current.X, (short)current.Y, (short)(current.W*1.15));
 		redrawPoly(rumble, (short)previous.X, (short)previous.Y, (short)(previous.W*1.03), (short)current.X, (short)current.Y, (short)(current.W*1.03));		
 		redrawPoly(rumble2, (short)previous.X, (short)previous.Y, (short)previous.W, (short)current.X, (short)current.Y, (short)current.W);
-		redrawPoly(line, (short)previous.X, (short)previous.Y, (short)(previous.W*0.015), (short)current.X, (short)current.Y, (short)(current.W*0.015));
+//		redrawPoly(line, (short)previous.X, (short)previous.Y, (short)(previous.W*0.015), (short)current.X, (short)current.Y, (short)(current.W*0.015));
+		redrawPoly(line, (short)previous.X, (short)previous.Y, (short)(previous.W*0.05), (short)current.X, (short)current.Y, (short)(current.W*0.05));
 	}
+	
 		for (int n = startPos + 199; n >= startPos; n--) {
 			if (lines[n%N].position != -1) {
 				lines[n%N].DrawObject(Rects[lines[n%N].position]->rect, Stage1, lines[n%N].elevate);
@@ -567,21 +549,6 @@ void ModuleSceneStage::reDrawRoad()
 			}
 		}
 		if(!TimePlaying())App->fonts->PrintCharacter(App->fonts->purpleFonts, 450, 500, "GAME OVER!");
-}
-
-void ModuleSceneStage::ChangeAltitude(float &altitudeVariation, float targetVariation, int currentSegment, int startingSegment, int endSegment, int heldSegments) {
-	int segmentsToMidpoint = (endSegment - startingSegment - heldSegments) / 2;
-	float variation = (float)targetVariation / segmentsToMidpoint;
-
-	if (currentSegment <= startingSegment + segmentsToMidpoint) {
-		altitudeVariation += variation;
-	}
-	else if (currentSegment >= startingSegment + segmentsToMidpoint + heldSegments) {
-		altitudeVariation -= variation;
-	}
-	if (currentSegment == endSegment) {
-		altitudeVariation = 0;
-	}
 }
 
 bool ModuleSceneStage::TimePlaying() {
