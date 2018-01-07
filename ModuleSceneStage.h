@@ -9,6 +9,9 @@ struct SDL_Texture;
 struct Rect {
 	SDL_Rect rect;
 };
+struct Anim {
+	Animation anim;
+};
 struct Cars {
 	SDL_Rect cars;
 	int hitX = 0;
@@ -42,7 +45,35 @@ public:
 
 	void scenarioBegin();
 
-	void controlVelocity();
+	void growVelocity() {
+		if (!HiVelocity) {
+			pos += 100;
+			score += 20;
+			vel += 1;
+			auxPos = pos;
+			if (vel >= 120 && vel < 130)vel = 120;
+			if (vel > 130)vel -= 20;
+		}
+		else {
+			pos += 200;			
+			score += 40;
+			vel += 2;
+			auxPos = pos;
+			if (vel >= 300)vel = 300;
+		}
+	}
+
+	void reduceVelocity() {
+		vel -= 5;
+		if (vel <= 0) {
+			vel = 0;
+		}
+		else {
+			if (!HiVelocity)pos += 100;
+			else pos += 200;
+		}
+		if (vel <= 120)HiVelocity = false;
+	}
 
 	//bool reDraw(int red, int green, int blue, int alpha, float lineWorldX, float lineWorldY, float lineWorldW, float lineScreenX, float lineScreenY, float lineScreenZ);
 	bool CleanUp();
@@ -61,7 +92,8 @@ public:
 	//
 	SDL_Texture* Uinterface = nullptr;
 	SDL_Texture* Stage1 = nullptr;
-	SDL_Rect* objectsStage1 = nullptr;
+	SDL_Texture* CarsTexture = nullptr;
+	//SDL_Rect* objectsStage1 = nullptr;
 
 
 	SDL_Rect markerUITime;
@@ -80,32 +112,23 @@ public:
 	Animation ocean;
 	int oceanpos;
 	int oceanpos2;
-	//SDL_Rect rightPanel;
+	int car1pos;
 	int rppos;
-	//SDL_Rect leftPanel;
 	int lppos;
 	SDL_Rect start;
 	int sfpos;
-	//SDL_Rect finish;
 	int ffpos;
-	//SDL_Rect house1;
 	int h1pos;
-	//SDL_Rect house2;
 	int h2pos;
-	//SDL_Rect check;
 	Animation trafficLight;
 	int tlpos;
 	SDL_Rect surfer;
 	int surpos;
 	SDL_Rect flag;
 	int flagpos;
-	//SDL_Rect people1;
 	int peopos1;
-	//SDL_Rect people2;
 	int peopos2;
-	//SDL_Rect harrow;
 	int harrowpos;
-	//SDL_Rect Ocean1;
 	int ocean1;
 	//
 	int countSequence = -1;
@@ -159,8 +182,7 @@ private:
 	bool HiVelocity;
 	int vel;
 	std::vector<Rect*> Rects;
-	std::vector<Cars*> Cars;
-	//clock_t initTime = clock();
+	std::vector<Anim*> Cars;
 private:
 	//clock_t initTime;
 

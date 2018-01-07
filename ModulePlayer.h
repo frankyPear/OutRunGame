@@ -26,9 +26,14 @@ public:
 	double speed;
 	Animation idle;
 	Animation backward;
+//PLAYER ANIMATIONS
 	Animation playerAnimation;
 	Animation manAnimation;
 	Animation womanAnimation;
+	Animation playerAnimationLeft1;
+	Animation playerAnimationLeft2;
+	Animation playerAnimationRight1;
+	Animation playerAnimationRight2;
 //CAR1 - Animations
 	Animation car1Left;
 	Animation car1Left1;
@@ -51,7 +56,7 @@ public:
 	Animation truckRight1;
 	Animation truckRight2;
 
-
+	int animations;
 
 	//Animation ryu;
 	iPoint position;

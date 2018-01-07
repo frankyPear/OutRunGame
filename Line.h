@@ -61,7 +61,36 @@ public:
 		App->renderer->BlitObjects(tex, (int)destX - spriteScaleW / 2,(int)destY, &sp, 0.f, spriteScaleW, spriteScaleH, elevate);
 	}
 	void DrawCars(SDL_Rect sp, SDL_Texture* tex) {
-	
+		float spriteXToDraw = spriteX;
+		int w = sp.w;
+		int h = sp.h;
+
+
+		//float destW = w * W / 500;
+		//float destH = h * W / 500;
+
+		float destW = w * W / 266;
+		float destH = h * W / 266;
+
+		float destX = X + scale * spriteXToDraw * SCREEN_WIDTH / 2;
+		float destY = Y + 4;
+		destX += destW * spriteXToDraw + 3; //offsetX
+											//destY += destH *(-1) - 20;    //offsetY ///////JODEEEEER
+		destY += destH *(-1);    //offsetY
+
+		float clipH = destY + destH - clip;
+		if (clipH<0) clipH = 0;
+
+
+		destX = X + (W * spriteXToDraw);
+		if (clipH >= destH) return;
+
+		sp.h = (int)(h - h*clipH / destH);
+		int spriteScaleH = (int)(sp.h*(destH / h));
+		int spriteScaleW = (int)(sp.w*(destW / w));
+		//App->renderer->Blit(tex, (int)destX - spriteScaleW / 2, (int)destY + 5, &sp, 0.f, spriteScaleW, spriteScaleH);
+		//App->renderer->ScaledBlit(tex, (int)destX - spriteScaleW / 2,(int)destY+5, &sp, 0.f, 1.5, 1.5);
+		App->renderer->BlitObjects(tex, (int)destX - spriteScaleW / 2, (int)destY, &sp, 0.f, spriteScaleW, spriteScaleH, elevate);
 	}
 		//int w = sp.w;
 		//int h = sp.h;

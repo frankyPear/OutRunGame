@@ -11,7 +11,7 @@ ModulePlayer::ModulePlayer(bool start_enabled) : Module(start_enabled)
 {
 	position.x = 100;
 	position.y = 216;
-
+	//Normal Animation
 	playerAnimation.frames.push_back({ 208,198,77,40 });
 	playerAnimation.frames.push_back({ 300,198,77,40 });
 
@@ -21,6 +21,19 @@ ModulePlayer::ModulePlayer(bool start_enabled) : Module(start_enabled)
 	womanAnimation.frames.push_back({ 822,411,13,11 });
 	womanAnimation.frames.push_back({ 822,423,13,11 });
 
+	//UpperAnimation Animation
+
+	playerAnimationLeft1.frames.push_back({207,1019,79,40});
+	playerAnimationLeft1.frames.push_back({299,1019,79,40});
+	playerAnimationLeft2.frames.push_back({206,1140,79,40});
+	playerAnimationLeft2.frames.push_back({298,1140,79,40});
+
+	playerAnimationRight1.frames.push_back({ 208,319,79, 40});
+	playerAnimationRight1.frames.push_back({300,319,79,40});
+	playerAnimationRight2.frames.push_back({208,440 ,79,40});
+	playerAnimationRight2.frames.push_back({300,440,79,40});
+
+	//CAR ANIMATIONS
 	car1Left.frames.push_back({30,7,39,30});
 	car1Left.frames.push_back({ 92,7,39,30});
 	car1Left1.frames.push_back({29,64,50,30});
@@ -63,17 +76,46 @@ ModulePlayer::ModulePlayer(bool start_enabled) : Module(start_enabled)
 	truckRight1.frames.push_back({ 350,117,48,53 });
 	truckRight2.frames.push_back({ 283,222,54,54});
 	truckRight2.frames.push_back({ 344,221,54,54 });
-	// TODO 8: setup the walk forward animation from ryu4.png
-	//if (!directionleft) {
-		//ryu.frames.push_back({ 8, 126,    54, 94 });
-		//ryu.frames.push_back({ 77, 126,   61, 94 });
-		//ryu.frames.push_back({ 161, 126,  65, 94 });
-		//ryu.frames.push_back({ 258, 126,  64, 94 });
-		//ryu.frames.push_back({ 351, 126,  55, 94 });
-		//ryu.frames.push_back({ 431, 126,  51, 94 });
-		//ryu.speed = 0.1f;
+
+	playerAnimation.speed = 0.1f;
+	manAnimation.speed = 0.1f;
+	womanAnimation.speed = 0.1f;
 
 
+	//UpperAnimation Animation
+
+	playerAnimationLeft1.speed = 0.1f;
+	playerAnimationLeft2.speed = 0.1f;
+
+	playerAnimationRight1.speed = 0.1f;
+	playerAnimationRight2.speed = 0.1f;
+
+	//CAR ANIMATIONS
+	car1Left.speed = 0.1f;
+	car1Left1.speed = 0.1f;
+	car1Left2.speed = 0.1f;
+
+	car1Right.speed = 0.1f;
+	car1Right1.speed = 0.1f;
+	car1Right2.speed = 0.1f;
+
+
+	car2Left.speed = 0.1f;
+	car2Left1.speed = 0.1f;
+	car2Left2.speed = 0.1f;
+
+	car2Right.speed = 0.1f;
+	car2Right1.speed = 0.1f;
+	car2Right2.speed = 0.1f;
+
+	truckLeft.speed = 0.1f;
+	truckLeft1.speed = 0.1f;
+	truckLeft2.speed = 0.1f;
+
+	truckRight.speed = 0.1f;
+	truckRight1.speed = 0.1f;
+	truckRight2.speed = 0.1f;
+	
 }
 
 ModulePlayer::~ModulePlayer()
@@ -85,7 +127,7 @@ ModulePlayer::~ModulePlayer()
 bool ModulePlayer::Start()
 {
 	LOG("Loading player");
-
+	animations =-1;
 	//graphics = App->textures->Load("ryu4.png"); // arcade version
 
 	return true;
@@ -104,6 +146,23 @@ bool ModulePlayer::CleanUp()
 // Update
 update_status ModulePlayer::Update()
 {
+	switch (animations)
+	{
+	case 0:
+		break;
+	case 1:
+		break;
+	case 2:
+		break;
+	case 3:
+		break;
+	case 4:
+		break;
+	case 5:
+		break;
+	default:
+		break;
+	}
 	//if (App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
 	//{
 	//	App->scene_stage->pos += 200;
