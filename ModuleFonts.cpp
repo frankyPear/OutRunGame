@@ -196,8 +196,8 @@ void ModuleFonts::PrintCharacter(SDL_Texture* font, int positionX, int positionY
 		SDL_Rect charPointer = FindCharacter(character);
 
 		if (&charPointer != nullptr) {
-			printRect.h = charPointer.h*1.5;
-			printRect.w = charPointer.w*1.5;
+			printRect.h = (int)charPointer.h*1.5;
+			printRect.w = (int)charPointer.w*1.5;
 			if (character == ':')printRect.y -= 5;
 			if (SDL_RenderCopy(App->renderer->renderer, fontToPrint, &charPointer, &printRect) != 0)
 			{

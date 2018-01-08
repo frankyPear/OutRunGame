@@ -168,8 +168,6 @@ public:
 	float landscapePositionX = 0.0f;
 	float landscapePositionY = 0.0f;
 	float foregroundPositionX = 0.0f;
-	int landscapeParallaxFactor = 300;
-	int foregroundParallaxFactor = 200;
 	int score;
 private:
 	int maxPuntuation;

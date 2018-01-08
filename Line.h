@@ -23,8 +23,8 @@ public:
 	//-->from world to screen
 	void projection(int camX, int camY, int camZ) {
 		scale = (float)(camD / (zc - camZ));
-		X = (1 + scale*(xc - camX)) * SCREEN_WIDTH / 2;
-		Y = (1 - scale*(yc - camY)) * SCREEN_HEIGHT /2.5;
+		X = (float)(1 + scale*(xc - camX)) * SCREEN_WIDTH / 2;
+		Y = (float)(1 - scale*(yc - camY)) * SCREEN_HEIGHT /2.5;
 		W = scale* roadW * SCREEN_WIDTH / 2;
 
 	}

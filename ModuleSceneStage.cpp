@@ -58,13 +58,6 @@ ModuleSceneStage::ModuleSceneStage(bool start_enabled) : Module(start_enabled)
 	gradas.w = 187;
 	gradas.h = 65;
 		
-	//flag.frames.push_back({ 971, 88 , 35 , 93, });
-	//flag.frames.push_back({ 959, 183 , 47, 91, });
-	//flag.frames.push_back({ 952, 274 , 53, 65, });
-	//flag.frames.push_back({ 952, 339 , 50, 66, });
-	//flag.frames.push_back({ 951, 407 , 52, 74, });
-	//flag.frames.push_back({ 955, 483 , 50, 81, });
-
 	Rect* PalmTreeBig = new Rect();
 	PalmTreeBig->rect = { 4, 108, 98, 210 };
 	Rects.push_back(PalmTreeBig);
@@ -72,7 +65,6 @@ ModuleSceneStage::ModuleSceneStage(bool start_enabled) : Module(start_enabled)
 
 	Rect* PalmTreeSmall = new Rect();
 	PalmTreeSmall->rect = { 5, 5, 160, 98 };
-	//Rects.push_back(PalmTreeBig);
 	Rects.push_back(PalmTreeSmall);
 	ptspos = Rects.size() - 1;
 
@@ -88,7 +80,6 @@ ModuleSceneStage::ModuleSceneStage(bool start_enabled) : Module(start_enabled)
 
 	Rect * StartFlag = new Rect();
 	StartFlag->rect = { 340, 2,887 , 75 };
-//	StartFlag->rect={339, 256, 59, 111};
 	Rects.push_back(StartFlag);
 	sfpos = Rects.size() - 1;
 
@@ -114,12 +105,10 @@ ModuleSceneStage::ModuleSceneStage(bool start_enabled) : Module(start_enabled)
 
 	Rect * People1 = new Rect();
 	People1->rect = { 528, 720, 148, 107 };
-	//People1->rect = { 529, 601, 148, 226 };
 	Rects.push_back(People1);
 	peopos1 = Rects.size() - 1;
 
 	Rect * People2 = new Rect();
-	//People2->rect = { 786, 730, 195, 130 };
 	People2->rect = { 703, 717, 139, 95 };
 	Rects.push_back(People2);
 	peopos2 = Rects.size() - 1;
@@ -139,15 +128,6 @@ ModuleSceneStage::ModuleSceneStage(bool start_enabled) : Module(start_enabled)
 	Rects.push_back(Ocean2);
 	oceanpos2 = Rects.size() - 1;
 
-//	Rect * Ocean2 = new Rect();
-//	Ocean2->rect = { 10, 665, 243, 31 };
-//	Rects.push_back(Ocean2);
-//	oceanpos2 = Rects.size() - 1;
-//
-//	Rect* Ocean2 = new Rect();
-//	Ocean2->rect = { 10, 665, 243, 31 };
-//	Rects.push_back(Ocean2);
-//	oceanpos2 = Rects.size() - 1;
 	countSequence=0;
 	start.x = 339;
 	start.y = 3;
@@ -168,8 +148,8 @@ ModuleSceneStage::ModuleSceneStage(bool start_enabled) : Module(start_enabled)
 	trafficLight.frames.push_back({ 845,303,73,127 });
 
 	trafficLight.speed = 0.01f;
-	//flag.speed = 0.1f;
 	float transitionValue;
+	//ROAD PRINT
 	for (int i = 0; i <11000; i++)
 	{
 		Line line;
@@ -433,62 +413,7 @@ ModuleSceneStage::ModuleSceneStage(bool start_enabled) : Module(start_enabled)
 				line.elevate = -10;
 			}
 		}
-//EXPANSION PACK
-//		if (6240<i && i<7020) { 
-//			line.curve = HIGHCURVERIGHT; 
-//			if (i % 20 == 0) {
-//				line.position = rppos;
-//				line.spriteX = -1.5;
-//				line.elevate = -10;
-//			}
-//		}
-//		if (7020<i && i<7800) { 
-//			line.curve = HIGHCURVELEFT; 
-//			if (i % 20 == 0) {
-//				line.position = lppos;
-//				line.spriteX = 1.5;
-//				line.elevate = -10;
-//			}
-//		}
-//		if (7800<i && i<8580) { 
-//			line.curve = HIGHCURVELEFT; 
-//			if (i % 20 == 0) {
-//				line.position = lppos;
-//				line.spriteX = 1.5;
-//				line.elevate = -10;
-//			}
-//		}
-//		if (8580<i && i<9360) { 
-//			if(i<8970)line.curve = HIGHCURVERIGHT;
-//			else line.curve = HIGHCURVELEFT; 
-//		}
-//		if (9360<i && i<10140) {
-//			transitionValue = (float)(sin(3.14*i / 300) * 2750);
-//			if (-0.1 < transitionValue < 0.1) line.yc = -transitionValue;
-//			if (350 < i && i < 400) {
-//				line.curve = LOWCURVELEFT;
-//				if (i % 20 == 0) {
-//					line.position = lppos;
-//					line.spriteX = 1.5;
-//					line.elevate = -10;
-//				}
-//			}
-//			if (i == 10139) lastValue = line.yc;
-//			if (400 < i && i < 500) {
-//				line.curve = NOTCURVE;
-//
-//			}
-//		}
-//		if (10140<i && i<10999) {
-//			//if (i==450) {
-//			//	line.position = ffpos;
-//			//	line.spriteX = 0;
-//			//	line.elevate = -10;
-//			//}
-//		}
 		lines.push_back(line);
-
-
 	}
 	N = lines.size();
 	pos = 0;
@@ -535,7 +460,7 @@ bool ModuleSceneStage::Start()
 	minuteLap = 0;
 	secondsLap = 0;
 	miliSecondsLap = 0;
-	//MODI
+
 	countSequence = 0;
 	secondsToQuit = 60;
 	secondsAux = 0;
@@ -549,10 +474,8 @@ bool ModuleSceneStage::Start()
 bool ModuleSceneStage::CleanUp()
 {
 	LOG("Unloading sega scene");
-	//App->audio->CleanUp();
 	App->player->CleanUp();
 	App->textures->Unload(Uinterface);
-//	App->textures->Unload(playerimage);
 	App->textures->Unload(Stage1);
 	App->textures->Unload(landscape);
 
@@ -573,8 +496,7 @@ update_status ModuleSceneStage::Update()
 				}
 				else {
 					reduceVelocity();
-					//if(vel==0)App->player->animations = 5;
-					if (vel == 0)playerY = 0;
+					if (vel == 0 && (playerY > 2200 || playerY < -2200))App->player->animations = 5;//playerY = 0;
 				}
 				if (INPUTLEFT)
 				{
@@ -586,24 +508,21 @@ update_status ModuleSceneStage::Update()
 					if (!HiVelocity) { if (vel != 0)playerY += 115; App->player->animations = 3; }
 					else { if (vel != 0)playerY += 65; App->player->animations = 4; }
 				}
-				else {
-					//App->player->animations = 0;
-				}
 				if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
 				{
 					if (!HiVelocity)HiVelocity = true;
 					else HiVelocity = false;
 				}
-				//if (playerY > 2200 && playerY < -2200) {
-				//	reduceVelocity();
-				//	if (vel != 0)playerY = 0;
-				//}
+
 				if (playerY > 3500)playerY = 3500;
 				if (playerY < -3500)playerY = -3500;
 			}
 			else {
-				if (vel != 0) {
-					reduceVelocity();
+				if (vel != 0 && playerY!=0) {
+					//reduceVelocity();
+					vel--;
+					if (playerY > 0)playerY--;
+					if (playerY < 0)playerY++;
 				}
 				else {
 					playerY = 0;
@@ -619,13 +538,10 @@ update_status ModuleSceneStage::Update()
 	}
 	
 	reDrawRoad();
+	//First Scene
 	if (countSequence<490)scenarioBegin();
-	//App->renderer->Blit(landscape, 0, -25, &background, 1);
-
 
 	UserInterface();
-//Posició normal
-	//if(vel==0)App->player->animations = 0;
 	App->player->printPlayer();//animations = 0;
 	return UPDATE_CONTINUE;
 
@@ -663,11 +579,9 @@ void ModuleSceneStage::reDrawRoad()
 	int startPos = seg_pos / 100;
 	int camH = (int)(1500 + lines[startPos].yc);
 	float maxy = SCREEN_HEIGHT;
-	//App->renderer->Blit(landscape, 0, -150, &background, 1);
 	App->renderer->Blit(landscape, 0, -150, &background, 1);
 	CurveManager(startPos);
 	if (lines[startPos+40 % N].position == ffpos)finish = true;
-	//if (lines[startPos + 25 % N].zc)countSequence++;
 
 	for (int n = startPos; n < startPos + 300; n++) {
 		Line &current = lines[n%N];
@@ -700,11 +614,6 @@ void ModuleSceneStage::reDrawRoad()
 			countToUpper++;
 			lines[n%N].DrawObject(Rects[lines[n%N].position]->rect, Stage1, lines[n%N].elevate);
 		}		
-	}
-	for (int n = startPos + 199; n >= startPos; n--) {
-		if (lines[n%N].position != -1) {
-			lines[n%N].DrawObject(Rects[lines[n%N].position]->rect, Stage1, lines[n%N].elevate);
-		}
 	}
 	if(!TimePlaying())App->fonts->PrintCharacter(App->fonts->purpleFonts, 400, 500, "GAME OVER!");
 	if(finish)App->fonts->PrintCharacter(App->fonts->purpleFonts, 300, 500, "CONGRATULATIONS YOU WIN!");
@@ -740,17 +649,15 @@ void ModuleSceneStage::UserInterface() {
 	else
 		App->fonts->PrintCharacter(App->fonts->yellowFonts, 225, 70, "0");
 	App->renderer->Blit(Uinterface, 300, 50, &markerUIScore, 1);
-	App->fonts->PrintCharacter(App->fonts->purpleFonts, (SCREEN_WIDTH / 2) - (208 / 2) + 100, 70, std::to_string(score));//itoa(App->scene_sega->score));
+	App->fonts->PrintCharacter(App->fonts->purpleFonts, (SCREEN_WIDTH / 2) - (208 / 2) + 100, 70, std::to_string(score));
 	App->renderer->Blit(Uinterface, 675, 50, &markerUILap, 1);
 	App->fonts->PrintCharacter(App->fonts->greenFonts, 825, 70, std::to_string(minuteLap) + ":" + std::to_string(secondsLap) + "::" + std::to_string(miliSecondsLap));
 	App->renderer->Blit(Uinterface, 950, 680, &markerUIMap, 1);
 	App->fonts->PrintCharacter(App->fonts->yellowFonts, 800, 695, "STAGE 1");
-	//Comprovació de Pos per pantalla
-	//App->fonts->PrintVelocity(App->fonts->velocity, 50, 650, std::to_string(line.yc));
 	App->fonts->PrintVelocity(App->fonts->velocity, 50, 650, std::to_string(vel));
 	App->renderer->Blit(Uinterface, 165, 650, &markerKMh, 1);
-	if (!HiVelocity) App->fonts->PrintCharacter(App->fonts->purpleFonts, 275, 675, "LOW");//itoa(App->scene_sega->score));;
-	else App->fonts->PrintCharacter(App->fonts->greenFonts, 275, 650, "HI");//itoa(App->scene_sega->score));;
+	if (!HiVelocity) App->fonts->PrintCharacter(App->fonts->purpleFonts, 275, 675, "LOW");
+	else App->fonts->PrintCharacter(App->fonts->greenFonts, 275, 650, "HI");
 }
 
 void ModuleSceneStage::scenarioBegin() {
@@ -776,22 +683,22 @@ void ModuleSceneStage::scenarioBegin() {
 	}
 }
 void ModuleSceneStage::CurveManager(int startPos) {
-	if (vel != 0) {
-		if (lines[startPos + 25 % N].curve == LOWCURVELEFT   && vel != 0 && TimePlaying()) { 
+	if (vel != 0 && TimePlaying()){//  && (!INPUTLEFT || !INPUTRIGHT)) {
+		if (lines[startPos + 25 % N].curve == LOWCURVELEFT) { 
 			playerY += 75; 
 			if(App->player->animations != 5)App->player->animations = 1;
 		}
-		else if (lines[startPos + 25 % N].curve == HIGHCURVELEFT  && vel != 0 && TimePlaying()) {
+		else if (lines[startPos + 25 % N].curve == HIGHCURVELEFT) {
 				playerY += 100; 
 				if (App->player->animations != 5)App->player->animations = 2;
 		}
-		else if (lines[startPos + 25 % N].curve == LOWCURVERIGHT  && vel != 0 && TimePlaying()) { 
+		else if (lines[startPos + 25 % N].curve == LOWCURVERIGHT) { 
 					playerY -= 75; 
 					if (App->player->animations != 5)App->player->animations = 3;
-		} else if (lines[startPos + 25 % N].curve == HIGHCURVERIGHT && vel != 0 && TimePlaying()) { 
+		} else if (lines[startPos + 25 % N].curve == HIGHCURVERIGHT) { 
 						playerY -= 100; 
 						if (App->player->animations != 5)App->player->animations = 4;
-		}else if (lines[startPos + 25 % N].curve == NOTCURVE && vel != 0 && TimePlaying() && (!INPUTLEFT || !INPUTRIGHT)) {
+		}else if (lines[startPos + 25 % N].curve == NOTCURVE && (!INPUTLEFT || !INPUTRIGHT)) {
 			if (App->player->animations != 5)App->player->animations = 0;
 		}
 	}
