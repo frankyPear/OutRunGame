@@ -30,10 +30,10 @@ Will you be able to get it?
 
 ### How to build the game on visual studio?
 
-Download the source code with the following [link](https://github.com/frankyPear/OutRunGame/releases) and open the visual studio project.
+Download the source code with the following [link](https://github.com/frankyPear/OutRunGame/releases/tag/OutRunGame_v0.1) and open the visual studio project.
 This project is compiled in Realease mode for x86 platforms.
 
-###License
+### License
 
 Apache License 2.0 © Francesc Pérez
 
