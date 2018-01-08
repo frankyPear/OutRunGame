@@ -21,7 +21,7 @@ Extract the .zip on any folder and execute "SDL Game -OutRun.exe"
 **_KeyBoard - D:_** _Go Right_ - Mover your position to the right.
 **_KeyBoard - SPACE:_** _Change Gear_ - Change your gear to low or high. // _Action Button_ - During the menu scene
 
-Check out the gameplay by the following [link]()
+Check out the gameplay with the following [link](https://youtu.be/FsluYIrxs1M)
 
 ### How to finish the game:
 
@@ -30,7 +30,7 @@ Will you be able to get it?
 
 ### How to build the game on visual studio?
 
-Download the source code with the following [link](https://github.com/frankyPear/OutRunGame/releases/tag/OutRunGame_v0.1) and open the visual studio project.
+Download the source code with the following [link](https://github.com/frankyPear/OutRunGame/releases/tag/OutRunGame_v0.2) and open the visual studio project.
 This project is compiled in Realease mode for x86 platforms.
 
 ### License
