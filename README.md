@@ -19,7 +19,7 @@ Extract the .zip on any folder and execute "SDL Game -OutRun.exe"
 **_KeyBoard - W:_** _Speed Up_ - Accelerate forward.
 **_KeyBoard - A:_** _Go Left_ - Mover your position to the left.
 **_KeyBoard - D:_** _Go Right_ - Mover your position to the right.
-**_KeyBoard - SPACE:_** _Change Gear_ - Change your gear to low or high.
+**_KeyBoard - SPACE:_** _Change Gear_ - Change your gear to low or high. // _Action Button_ - During the menu scene
 
 Check out the gameplay by the following [link]()
 
