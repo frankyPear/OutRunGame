@@ -1,13 +1,16 @@
-## Welcome to GitHub Pages
+## OUTRUN ARCADE GAME - 1986
 
-You can use the [editor on GitHub](https://github.com/frankyPear/OutRunGame/edit/master/README.md) to maintain and preview the content for your website in Markdown files.
+Welcome to my little tribute to OUTRUN! This game was build using SDL and C++ with Visual Studio. 
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+The objective of this project is to recreate the pseudo 3d technique or also known as 2.5D.
+This simulation of projections used during the 70's and 80's had the purpose of bringing a 3d resemblance to the games.
 
-### Markdown
+The content of this game was extractet from [Sega System 16 Sprite Viewer](http://reassembler.blogspot.com.es/2012/11/sega-system-16-sprite-viewer.html) other content was extracted manually.
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+### How To Play
 
+Once you download the release game from [frankyPear releases](https://github.com/frankyPear/OutRunGame/releases)
+Extract the .zip on any folder and execute "SDL Game -OutRun.exe"
 ```markdown
 Syntax highlighted code block
 
