@@ -5,36 +5,31 @@ Welcome to my little tribute to OUTRUN! This game was build using SDL and C++ wi
 The objective of this project is to recreate the pseudo 3d technique or also known as 2.5D.
 This simulation of projections used during the 70's and 80's had the purpose of bringing a 3d resemblance to the games.
 
-The content of this game was extractet from [Sega System 16 Sprite Viewer](http://reassembler.blogspot.com.es/2012/11/sega-system-16-sprite-viewer.html) other content was extracted manually.
+The content of this game was extracted from [Sega System 16 Sprite Viewer](http://reassembler.blogspot.com.es/2012/11/sega-system-16-sprite-viewer.html) other content was extracted manually.
 
-### How To Play
+### How To Play 🎮
 
 Once you download the release game from [frankyPear releases](https://github.com/frankyPear/OutRunGame/releases)
+
 Extract the .zip on any folder and execute "SDL Game -OutRun.exe"
+
 ```markdown
-Syntax highlighted code block
+# Commands
 
-# Header 1
-## Header 2
-### Header 3
+**_KeyBoard - W:_** _Speed Up_ - Accelerate forward.
+**_KeyBoard - A:_** _Go Left_ - Mover your position to the left.
+**_KeyBoard - D:_** _Go Right_ - Mover your position to the right.
+**_KeyBoard - SPACE:_** _Change Gear_ - Change your gear to low or high.
 
-- Bulleted
-- List
+Check out the gameplay by the following [link]()
 
-1. Numbered
-2. List
+### How to build the game on visual studio?
 
-**Bold** and _Italic_ and `Code` text
+Download the source code with the following [link](https://github.com/frankyPear/OutRunGame/releases) and open the visual studio project.
+This project is compiled in Realease mode for x86 platforms.
 
-[Link](url) and ![Image](src)
-```
+###License
 
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
+Apache License 2.0 © Francesc Pérez
 
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/frankyPear/OutRunGame/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://help.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+Happy Gaming for everyone :)
