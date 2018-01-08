@@ -14,6 +14,7 @@
 #include "SDL/include/SDL2_gfxPrimitives.c"
 #include "SDL/include/SDL2_rotozoom.c"
 #include "ModuleSceneStage.h"
+#include "ModuleSceneMusic.h"
 #include <string>
 #include <ctime>
 #include <time.h>
@@ -104,16 +105,16 @@ ModuleSceneStage::ModuleSceneStage(bool start_enabled) : Module(start_enabled)
 	Rect * House2 = new Rect();
 	House2->rect = { 525, 623, 118, 85 };
 	Rects.push_back(House2);
-	h1pos = Rects.size() - 1;
+	h2pos = Rects.size() - 1;
 	
 	Rect * Surfer = new Rect();
-	Surfer->rect = { 545, 550, 51, 65 };
+	Surfer->rect = { 546, 530, 51, 86 };
 	Rects.push_back(Surfer);
 	surpos = Rects.size() - 1;
 
 	Rect * People1 = new Rect();
-	//People1->rect = { 528, 720, 238, 161 };
-	People1->rect = { 529, 601, 148, 226 };
+	People1->rect = { 528, 720, 148, 107 };
+	//People1->rect = { 529, 601, 148, 226 };
 	Rects.push_back(People1);
 	peopos1 = Rects.size() - 1;
 
@@ -178,10 +179,14 @@ ModuleSceneStage::ModuleSceneStage(bool start_enabled) : Module(start_enabled)
 			if (i == 24) {
 				line.position = peopos1;
 				line.spriteX = -0.6f;
+				line.scale = 3;
+				line.elevate = -10;
 			}
 			if (i == 25) {
 				line.position = peopos2;
 				line.spriteX = 0.6f;
+				line.scale = 3;
+				line.elevate = -10;
 			}
 
 			if (i<390 && !(i>=24 && i<=26)) {
@@ -194,26 +199,28 @@ ModuleSceneStage::ModuleSceneStage(bool start_enabled) : Module(start_enabled)
 				if (i % 21 == 0) {
 					line.position = ptbpos;
 					line.spriteX = 1.5f;
-					line.elevate = -10;
+					line.elevate = -5;
 				}
 			}
 			else {
-				if (i % 20 == 0 &&!(i >= 24 && i <= 26)) {
+				if (i % 20 == 0 && i != 24 && i != 25) {
 					line.position = ptspos;
 					line.spriteX = 1.5f;
-					line.elevate = -5;
+					line.elevate = 0;
 				}
-				if (i % 21 == 0 &&!(i >= 24 && i <= 26)) {
+				if (i % 21 == 0 &&i != 24 && i != 25) {
 					line.position = ptspos;
 					line.spriteX = -1.5f;
-					line.elevate = -5;
+					line.elevate = 0;
 				}
 			}
 			transitionValue = (float)(sin(3.14*i / 300) * 2750);
 			if (-0.1 < transitionValue < 0.1) line.yc = -transitionValue;
 			if(350<i && i < 400)line.curve = LOWCURVELEFT;
 			if (i == 779) lastValue = line.yc;
-			if (400 < i && i < 500)line.curve = NOTCURVE;
+			if (400 < i && i < 500) {
+				line.curve = NOTCURVE;
+			}
 			//if (i == 30) {
 			//	line.position = car1pos;
 			//	line.spriteX = 0;
@@ -222,20 +229,34 @@ ModuleSceneStage::ModuleSceneStage(bool start_enabled) : Module(start_enabled)
 		}
 		if (780 <i && i<1560) 
 		{
-			
 			transitionValue = (float)(sin(3.14*i / 300) * 1650);
+			//transitionValue = (float)(sin(3.14*i / 400) * 400);
 			if(i<1400)if (-0.1 < transitionValue < 0.1) line.yc = -transitionValue;
+			if (780 <i && 1000) {
+				if (i % 20 == 0) {
+					line.position = harrowpos;
+					line.spriteX = -1.5f;
+					line.elevate = -5;
+				}
+				else {
+					if (i % 21 == 0) {
+						line.position = h2pos;
+						line.spriteX = 1.5f;
+						line.elevate = -5;
+					}
+				}
+			}
 			if (1000 < i && i < 1200) {
 				line.curve = LOWCURVERIGHT;
 				if (i % 20 == 0) {
 					line.position = rppos;
-					line.spriteX = -1.5;
+					line.spriteX = -1.5f;
 					line.elevate = -5;
 				}if (i % 21 ==0) {
-					//line.position = ffpos;
-					//line.spriteX = 0;
-					//line.scale = 3;
-					//line.elevate = -50;
+					line.position = ptbpos;
+					line.spriteX = +1.5f;
+					line.scale = 3;
+					line.elevate = -5;
 				}
 				
 
@@ -247,49 +268,73 @@ ModuleSceneStage::ModuleSceneStage(bool start_enabled) : Module(start_enabled)
 			line.curve = LOWCURVELEFT; 
 			if (i % 20 == 0) {
 				line.position = lppos;
-				line.spriteX = 1.5;
+				line.spriteX = 1.5f;
 				line.elevate = -10;
+			}else if (i % 25 == 0) {
+				line.position = ptspos;
+				line.spriteX = -1.5f;
+				line.elevate = -5;
 			}
 		}
 		if (2340<i && i<3120) { 
 			line.curve = LOWCURVERIGHT; 
 			if (i % 2 == 0) {
 				line.position = oceanpos;
-				line.spriteX = -2;
+				line.spriteX = -2.0f;
 				line.elevate = -10;
 			}
-			else {
+			else if(i%3==0){
 				line.position = oceanpos2;
-				line.spriteX = -2;
+				line.spriteX = -2.0f;
+				line.elevate = -10;
+			}if (i % 17 == 0) {
+				line.position = ptspos;
+				line.spriteX = 1.5f;
 				line.elevate = -10;
 			}
 			if (i % 20 == 0) {
 				line.position = rppos;
-				line.spriteX = -1.5;
+				line.spriteX = -1.5f;
 				line.elevate = -10;
-			}
-
+			}			
+			transitionValue = (float)(sin(3.14*i / 400) * 150);
+			if (-0.1 < transitionValue < 0.1) line.yc = -transitionValue;
+			if (2340<i && i < 2440)line.curve = LOWCURVELEFT;
+			if (i == 779) lastValue = line.yc;
+			if (2900 < i && i < 3100)line.curve = NOTCURVE;
 		}
 		if (3120<i && i<3900) { 
-			line.curve = NOTCURVE; 
+			if(i<3400)line.curve = NOTCURVE; 
+			else line.curve = HIGHCURVERIGHT;
 			if (i % 2 == 0) {
 				line.position = oceanpos;
-				line.spriteX = -2;
+				line.spriteX = -2.0f;
 				line.elevate = -10;
 			}
-			else {
+			else if (i % 3 == 0) {
+				line.position = oceanpos;
+				line.spriteX = -1.5f;
+				line.elevate = -10;
+			}
+			else if (i % 7 == 0) {
 				line.position = oceanpos2;
-				line.spriteX = -2;
+				line.spriteX = -2.0f;
 				line.elevate = -10;
 			}
-			if (i % 20 == 0) {
+			else if (i % 9 == 0) {
 				line.position = surpos;
-				line.spriteX = -2;
+				line.spriteX = -2.2f;
+				line.elevate = -10;
+			}			
+			if (i % 20 == 0) {
+				
+				line.position = surpos;
+				line.spriteX = -2.0f;
 				line.elevate = -10;
 			}
 			if (i % 25 == 0) {
 				line.position = h1pos;
-				line.spriteX = 1.5;
+				line.spriteX = 1.5f;
 				line.elevate = -10;
 				line.scale = 3.5;
 			}
@@ -299,7 +344,22 @@ ModuleSceneStage::ModuleSceneStage(bool start_enabled) : Module(start_enabled)
 			line.curve = LOWCURVELEFT; 			
 			if (i % 20 == 0) {
 				line.position = lppos;
-				line.spriteX = 1.5;
+				line.spriteX = 1.5f;
+				line.elevate = -10;
+			}
+			else if (i % 3 == 0) {
+				line.position = oceanpos;
+				line.spriteX = -1.5f;
+				line.elevate = -10;
+			}
+			else if (i % 7 == 0) {
+				line.position = oceanpos2;
+				line.spriteX = -2.0f;
+				line.elevate = -10;
+			}
+			else if (i % 9 == 0) {
+				line.position = surpos;
+				line.spriteX = -1.2f;
 				line.elevate = -10;
 			}
 		}
@@ -307,7 +367,22 @@ ModuleSceneStage::ModuleSceneStage(bool start_enabled) : Module(start_enabled)
 			line.curve = HIGHCURVELEFT; 
 			if (i % 20 == 0) {
 				line.position = lppos;
-				line.spriteX = 1.5;
+				line.spriteX = 1.5f;
+				line.elevate = -10;
+			}
+			else if (i % 3 == 0) {
+				line.position = oceanpos;
+				line.spriteX = -1.5f;
+				line.elevate = -10;
+			}
+			else if (i % 7 == 0) {
+				line.position = oceanpos2;
+				line.spriteX = -2.0f;
+				line.elevate = -10;
+			}
+			else if (i % 9 == 0) {
+				line.position = surpos;
+				line.spriteX = -1.0f;
 				line.elevate = -10;
 			}
 		}
@@ -315,69 +390,102 @@ ModuleSceneStage::ModuleSceneStage(bool start_enabled) : Module(start_enabled)
 			line.curve = NOTCURVE;
 			if (i == 6000) {
 				line.position = ffpos;
-				line.spriteX = 0;
+				line.spriteX = 1.5f;
 				line.elevate = -20;
 				line.scale = 3;
 				line.elevate = -50;
 			}
-			else {
-				line.position = oceanpos;
-				line.spriteX = -1.5;
-				line.elevate = -10;
-			}
-		}
-		if (6240<i && i<7020) { 
-			line.curve = HIGHCURVERIGHT; 
-			if (i % 20 == 0) {
-				line.position = rppos;
-				line.spriteX = -1.5;
-				line.elevate = -10;
-			}
-		}
-		if (7020<i && i<7800) { 
-			line.curve = HIGHCURVELEFT; 
-			if (i % 20 == 0) {
-				line.position = lppos;
-				line.spriteX = 1.5;
-				line.elevate = -10;
-			}
-		}
-		if (7800<i && i<8580) { 
-			line.curve = HIGHCURVELEFT; 
-			if (i % 20 == 0) {
-				line.position = lppos;
-				line.spriteX = 1.5;
-				line.elevate = -10;
-			}
-		}
-		if (8580<i && i<9360) { 
-			if(i<8970)line.curve = HIGHCURVERIGHT;
-			else line.curve = HIGHCURVELEFT; 
-		}
-		if (9360<i && i<10140) {
-			transitionValue = (float)(sin(3.14*i / 300) * 2750);
-			if (-0.1 < transitionValue < 0.1) line.yc = -transitionValue;
-			if (350 < i && i < 400) {
-				line.curve = LOWCURVELEFT;
-				if (i % 20 == 0) {
-					line.position = lppos;
-					line.spriteX = 1.5;
-					line.elevate = -10;
-				}
-			}
-			if (i == 10139) lastValue = line.yc;
-			if (400 < i && i < 500) {
-				line.curve = NOTCURVE;
-
-			}
-		}
-		if (10140<i && i<10999) {
-			if (i==450) {
+			else if (i == 6001) {
 				line.position = ffpos;
-				line.spriteX = 0;
+				line.spriteX = -1.5f;
+				line.elevate = -20;
+				line.scale = 3;
+				line.elevate = -50;
+			}
+			else if (i % 3 == 0) {
+				line.position = oceanpos;
+				line.spriteX = -1.5f;
+				line.elevate = -10;
+			}
+			else if (i % 5 == 0) {
+					line.position = oceanpos2;
+					line.spriteX = -2.0f;
+					line.elevate = -10;
+			}
+			else if (i % 7 == 0) {
+					line.position = oceanpos;
+					line.spriteX = -2.5f;
+					line.elevate = -10;
+			}
+			else if (i % 9 == 0) {
+				line.position = oceanpos2;
+				line.spriteX = -3.0f;
+				line.elevate = -10;
+			}			
+			else if (i % 11 == 0) {
+				line.position = surpos;
+				line.spriteX = -2.5f;
+				line.elevate = -10;
+			}
+			else if (i % 13 == 0) {
+				line.position = surpos;
+				line.spriteX = -1.5f;
 				line.elevate = -10;
 			}
 		}
+//EXPANSION PACK
+//		if (6240<i && i<7020) { 
+//			line.curve = HIGHCURVERIGHT; 
+//			if (i % 20 == 0) {
+//				line.position = rppos;
+//				line.spriteX = -1.5;
+//				line.elevate = -10;
+//			}
+//		}
+//		if (7020<i && i<7800) { 
+//			line.curve = HIGHCURVELEFT; 
+//			if (i % 20 == 0) {
+//				line.position = lppos;
+//				line.spriteX = 1.5;
+//				line.elevate = -10;
+//			}
+//		}
+//		if (7800<i && i<8580) { 
+//			line.curve = HIGHCURVELEFT; 
+//			if (i % 20 == 0) {
+//				line.position = lppos;
+//				line.spriteX = 1.5;
+//				line.elevate = -10;
+//			}
+//		}
+//		if (8580<i && i<9360) { 
+//			if(i<8970)line.curve = HIGHCURVERIGHT;
+//			else line.curve = HIGHCURVELEFT; 
+//		}
+//		if (9360<i && i<10140) {
+//			transitionValue = (float)(sin(3.14*i / 300) * 2750);
+//			if (-0.1 < transitionValue < 0.1) line.yc = -transitionValue;
+//			if (350 < i && i < 400) {
+//				line.curve = LOWCURVELEFT;
+//				if (i % 20 == 0) {
+//					line.position = lppos;
+//					line.spriteX = 1.5;
+//					line.elevate = -10;
+//				}
+//			}
+//			if (i == 10139) lastValue = line.yc;
+//			if (400 < i && i < 500) {
+//				line.curve = NOTCURVE;
+//
+//			}
+//		}
+//		if (10140<i && i<10999) {
+//			//if (i==450) {
+//			//	line.position = ffpos;
+//			//	line.spriteX = 0;
+//			//	line.elevate = -10;
+//			//}
+//		}
 		lines.push_back(line);
 
 
@@ -398,7 +506,23 @@ bool ModuleSceneStage::Start()
 	landscape = App->textures->Load(BACKGROUND);
 	Stage1 = App->textures->Load(STAGE);
 	Uinterface = App->textures->Load(MARKERPATH);
-	App->audio->PlayMusic(SOUNDBREEZEPATH, 1.0f);
+	switch (App->scene_music->musicCount)
+	{
+		case 0:
+			App->audio->PlayMusic(SOUNDMAGICALPATH, 1.0f);
+		break;
+		case 1:
+			App->audio->PlayMusic(SOUNDBREEZEPATH, 1.0f);
+		break;
+		case 2:
+			App->audio->PlayMusic(SOUNDWAVEPATH, 1.0f);
+		break;
+		case 3:
+			App->audio->PlayMusic(SOUNDBEATPATH, 1.0f);
+		break;
+	default:
+		break;
+	}
 	//App->fade->FadeToBlack((Module*)App->player, nullptr);
 	App->player->Start();
 	score = 0;
@@ -413,7 +537,7 @@ bool ModuleSceneStage::Start()
 	miliSecondsLap = 0;
 	//MODI
 	countSequence = 0;
-	secondsToQuit = 100;
+	secondsToQuit = 60;
 	secondsAux = 0;
 	HiVelocity = false;
 	vel = 0;
@@ -438,39 +562,54 @@ bool ModuleSceneStage::CleanUp()
 update_status ModuleSceneStage::Update()
 {
 	//Timer
+	if (playerY == 3500 || playerY == -3500)App->player->animations = 5;
 	if (SECONDSPASSED > 2) {
 		if (TimePlaying() && !finish) {
-
-			if (App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
-			{
-				growVelocity();
-				if (countSequence < 500)countSequence += 15;
+			if (App->player->animations != 5) {
+				if (INPUTACCELERATE && !(playerY > 2200 || playerY < -2200))
+				{
+					growVelocity();
+					if (countSequence < 500)countSequence += 15;
+				}
+				else {
+					reduceVelocity();
+					//if(vel==0)App->player->animations = 5;
+					if (vel == 0)playerY = 0;
+				}
+				if (INPUTLEFT)
+				{
+					if (!HiVelocity) { if (vel != 0)playerY -= 115; App->player->animations = 1; }
+					else { if (vel != 0)playerY -= 65; App->player->animations = 2; }
+				}
+				else if (INPUTRIGHT)
+				{
+					if (!HiVelocity) { if (vel != 0)playerY += 115; App->player->animations = 3; }
+					else { if (vel != 0)playerY += 65; App->player->animations = 4; }
+				}
+				else {
+					//App->player->animations = 0;
+				}
+				if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
+				{
+					if (!HiVelocity)HiVelocity = true;
+					else HiVelocity = false;
+				}
+				//if (playerY > 2200 && playerY < -2200) {
+				//	reduceVelocity();
+				//	if (vel != 0)playerY = 0;
+				//}
+				if (playerY > 3500)playerY = 3500;
+				if (playerY < -3500)playerY = -3500;
 			}
 			else {
-				reduceVelocity();
+				if (vel != 0) {
+					reduceVelocity();
+				}
+				else {
+					playerY = 0;
+					App->player->animations = 0;
+				}
 			}
-			if (App->input->GetKey(SDL_SCANCODE_A) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
-			{
-				if (!HiVelocity) { if (vel != 0)playerY -= 85; App->player->animations = 1; }
-				else { if (vel != 0)playerY -= 125; App->player->animations = 2; }
-
-			}
-			else if (App->input->GetKey(SDL_SCANCODE_D) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
-			{
-				if (!HiVelocity) { if (vel != 0)playerY += 85; App->player->animations = 3; }
-				else { if (vel != 0)playerY += 125; App->player->animations = 4; }
-
-			}
-			else {
-				//App->player->animations = 0;
-			}
-			if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
-			{
-				if (!HiVelocity)HiVelocity = true;
-				else HiVelocity = false;
-			}
-			if (playerY > 3500)playerY = 3500;
-			if (playerY < -3500)playerY = -3500;
 		}
 		else {
 			SDL_Delay(2000);
@@ -526,17 +665,8 @@ void ModuleSceneStage::reDrawRoad()
 	float maxy = SCREEN_HEIGHT;
 	//App->renderer->Blit(landscape, 0, -150, &background, 1);
 	App->renderer->Blit(landscape, 0, -150, &background, 1);
-	if (vel != 0) {
-		if (lines[startPos + 25 % N].curve == LOWCURVELEFT   && vel != 0 && TimePlaying()) { playerY += 25; App->player->animations = 1; }
-		else
-			if (lines[startPos + 25 % N].curve == HIGHCURVELEFT  && vel != 0 && TimePlaying()) { playerY += 50; App->player->animations = 2; }
-			else
-				if (lines[startPos + 25 % N].curve == LOWCURVERIGHT  && vel != 0 && TimePlaying()) { playerY -= 25; App->player->animations = 3; }
-				else
-					if (lines[startPos + 25 % N].curve == HIGHCURVERIGHT && vel != 0 && TimePlaying()) { playerY -= 50; App->player->animations = 4; } else
-						if (lines[startPos + 25 % N].curve == NOTCURVE && vel != 0 && TimePlaying() && (!INPUTLEFT || !INPUTRIGHT)) { App->player->animations = 0; }//else
-	}
-	if (lines[startPos % N].position == ffpos)finish = true;
+	CurveManager(startPos);
+	if (lines[startPos+40 % N].position == ffpos)finish = true;
 	//if (lines[startPos + 25 % N].zc)countSequence++;
 
 	for (int n = startPos; n < startPos + 300; n++) {
@@ -564,20 +694,20 @@ void ModuleSceneStage::reDrawRoad()
 		redrawPoly(rumble2, (short)previous.X, (short)previous.Y, (short)previous.W, (short)current.X, (short)current.Y, (short)current.W);
 		redrawPoly(line, (short)previous.X, (short)previous.Y, (short)(previous.W*0.05), (short)current.X, (short)current.Y, (short)(current.W*0.05));
 	}
-	
-		for (int n = startPos + 199; n >= startPos; n--) {
-			if (lines[n%N].position != -1) {
-				//if (lines[n%N].position == ffpos)lines[n%N].DrawFinishCheck(Rects[lines[n%N].position]->rect, Stage1, lines[n%N].elevate);
-				lines[n%N].DrawObject(Rects[lines[n%N].position]->rect, Stage1, lines[n%N].elevate);
-			}		
+	int countToUpper = 0;
+	for (int n = startPos + 199; n >= startPos; n--) {
+		if (lines[n%N].position != -1) {
+			countToUpper++;
+			lines[n%N].DrawObject(Rects[lines[n%N].position]->rect, Stage1, lines[n%N].elevate);
+		}		
+	}
+	for (int n = startPos + 199; n >= startPos; n--) {
+		if (lines[n%N].position != -1) {
+			lines[n%N].DrawObject(Rects[lines[n%N].position]->rect, Stage1, lines[n%N].elevate);
 		}
-		for (int n = startPos + 199; n >= startPos; n--) {
-			if (lines[n%N].position != -1) {
-				lines[n%N].DrawObject(Rects[lines[n%N].position]->rect, Stage1, lines[n%N].elevate);
-			}
-		}
-		if(!TimePlaying())App->fonts->PrintCharacter(App->fonts->purpleFonts, 400, 500, "GAME OVER!");
-		if(finish)App->fonts->PrintCharacter(App->fonts->purpleFonts, 300, 500, "CONGRATULATIONS YOU WIN!");
+	}
+	if(!TimePlaying())App->fonts->PrintCharacter(App->fonts->purpleFonts, 400, 500, "GAME OVER!");
+	if(finish)App->fonts->PrintCharacter(App->fonts->purpleFonts, 300, 500, "CONGRATULATIONS YOU WIN!");
 }
 
 bool ModuleSceneStage::TimePlaying() {
@@ -626,11 +756,7 @@ void ModuleSceneStage::UserInterface() {
 void ModuleSceneStage::scenarioBegin() {
 
 	App->renderer->ScaledBlit(Stage1, -175, 400, &gradas, 1,1.5,1.5);
-	//App->renderer->ScaledBlit(Stage1, -650, 450, &gradas, 1,3,3);
 	App->renderer->Blit(Stage1, 765+countSequence, 400, &palmatreeSmall, 1);
-	
-//	App->renderer->Blit(Stage1, 165, 650, &rightPanel, 1);
-//	App->renderer->Blit(Stage1, 165, 650, &leftPanel, 1);
 	App->renderer->ScaledBlit(Stage1, 50, 100- countSequence, &start,0.25f, 1.5, 1.5);
 	App->renderer->ScaledBlit(Stage1, 25- countSequence, 150 + countSequence, &(trafficLight.GetCurrentFrame()), 1,3,3);
 	App->renderer->ScaledBlit(Stage1, 750+ countSequence, 150 + countSequence, &(trafficLight.GetCurrentFrame()), 1, 3, 3);
@@ -648,16 +774,25 @@ void ModuleSceneStage::scenarioBegin() {
 		flag.h = 74;
 		App->renderer->ScaledBlit(Stage1, 200 - countSequence, 350 + countSequence, &flag, 0.8f, 3, 3);
 	}
-	//flag.frames.push_back({ 971, 88 , 35 , 93, });
-	//flag.frames.push_back({ 959, 183 , 47, 91, });
-	//flag.frames.push_back({ 952, 274 , 53, 65, });
-	//flag.frames.push_back({ 952, 339 , 50, 66, });
-	//flag.frames.push_back({ 951, 407 , 52, 74, });
-	//flag.frames.push_back({ 955, 483 , 50, 81, });
-
-	//App->renderer->ScaledBlit(Stage1, 20, 400, &people1, 1,1.5,1.5);
-	//App->renderer->ScaledBlit(Stage1, 650, 400, &people2, 1,1.5,1.5);
-//	App->renderer->ScaledBlit(Stage1, 225, 390, &flag, 0.01f,3,3);
-	//App->renderer->Blit(Stage1, 165, 650, &harrow, 1);
-
+}
+void ModuleSceneStage::CurveManager(int startPos) {
+	if (vel != 0) {
+		if (lines[startPos + 25 % N].curve == LOWCURVELEFT   && vel != 0 && TimePlaying()) { 
+			playerY += 75; 
+			if(App->player->animations != 5)App->player->animations = 1;
+		}
+		else if (lines[startPos + 25 % N].curve == HIGHCURVELEFT  && vel != 0 && TimePlaying()) {
+				playerY += 100; 
+				if (App->player->animations != 5)App->player->animations = 2;
+		}
+		else if (lines[startPos + 25 % N].curve == LOWCURVERIGHT  && vel != 0 && TimePlaying()) { 
+					playerY -= 75; 
+					if (App->player->animations != 5)App->player->animations = 3;
+		} else if (lines[startPos + 25 % N].curve == HIGHCURVERIGHT && vel != 0 && TimePlaying()) { 
+						playerY -= 100; 
+						if (App->player->animations != 5)App->player->animations = 4;
+		}else if (lines[startPos + 25 % N].curve == NOTCURVE && vel != 0 && TimePlaying() && (!INPUTLEFT || !INPUTRIGHT)) {
+			if (App->player->animations != 5)App->player->animations = 0;
+		}
+	}
 }

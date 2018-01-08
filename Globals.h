@@ -31,13 +31,14 @@
 #define BREEZEPATH "Background\\OutRunBreeze.bmp"
 #define WAVEPATH "Background\\OutRunWave.bmp"
 #define BEATPATH "Background\\OutRunBeat.bmp"
-#define SOUNDMAGICALPATH "Sound\\01 - Magical - Sound - Shower.ogg"
+#define SOUNDMAGICALPATH "Sound\\01-Magical-Sound-Shower.ogg"
 #define SOUNDBREEZEPATH "Sound\\02-Passing-Breeze.ogg"
 #define SOUNDWAVEPATH "Sound\\03-Splash-Wave.ogg"
 #define SOUNDLASTWAVEPATH "Sound\\04-Last-Wave.ogg"
-#define SOUNDBEATPATH "Sound\\05-Step-on-Beat"
+#define SOUNDBEATPATH "Sound\\05-Step-on-Beat.ogg"
 #define INPUTLEFT App->input->GetKey(SDL_SCANCODE_A) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT
 #define INPUTRIGHT App->input->GetKey(SDL_SCANCODE_D) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT
+#define INPUTACCELERATE App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT
 #define SECONDSPASSED (clock() - initTimer) / CLOCKS_PER_SEC
 #define BACKGROUND "Background\\OutRunBackground1.png"
 #define STAGE "Stage\\Stage1.png"

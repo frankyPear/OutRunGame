@@ -43,6 +43,10 @@ public:
 
 	void scenarioBegin();
 
+	void CurveManager(int startPos);
+
+	void CurveManager();
+
 	void growVelocity() {
 		if (!HiVelocity) {
 			pos += 100;

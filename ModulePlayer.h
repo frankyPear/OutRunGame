@@ -32,6 +32,9 @@ public:
 	Animation playerAnimation;
 	Animation manAnimation;
 	Animation womanAnimation;
+	Animation playerCrashAnimation;
+	Animation manCrashAnimation;
+	Animation womanCrashAnimation;
 	Animation playerAnimationLeft1;
 	Animation playerAnimationLeft2;
 	Animation playerAnimationRight1;

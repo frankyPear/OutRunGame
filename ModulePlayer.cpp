@@ -21,6 +21,19 @@ ModulePlayer::ModulePlayer(bool start_enabled) : Module(start_enabled)
 	womanAnimation.frames.push_back({ 822,411,13,11 });
 	womanAnimation.frames.push_back({ 822,423,13,11 });
 
+	//Colision
+
+	playerCrashAnimation.frames.push_back({787 ,155 ,123,40});
+	playerCrashAnimation.frames.push_back({787 ,196 ,170,39});
+	playerCrashAnimation.frames.push_back({787 ,236 ,166,39});
+	playerCrashAnimation.frames.push_back({787 ,276 ,124,40});
+	playerCrashAnimation.frames.push_back({1014,155 ,123,40});
+	playerCrashAnimation.frames.push_back({ 967 ,196,170,39});
+	playerCrashAnimation.frames.push_back({ 971 ,236,166,39});
+	playerCrashAnimation.frames.push_back({ 1013,276,124,40});
+	//manCrashAnimation;
+	//womanCrashAnimation;
+
 	//UpperAnimation Animation
 
 	playerAnimationLeft1.frames.push_back({207,1019,79,40});
@@ -89,6 +102,8 @@ ModulePlayer::ModulePlayer(bool start_enabled) : Module(start_enabled)
 
 	playerAnimationRight1.speed = 0.1f;
 	playerAnimationRight2.speed = 0.1f;
+
+	playerCrashAnimation.speed = 0.1f;
 
 	//CAR ANIMATIONS
 	car1Left.speed = 0.1f;
@@ -179,6 +194,8 @@ void ModulePlayer::printPlayer() {
 		App->renderer->ScaledBlit(playerimage, (SCREEN_WIDTH / 2) + 15, (SCREEN_HEIGHT - 149), &(App->player->womanAnimation.GetCurrentFrame()), 0.25f, 3, 3);
 		break;
 	case 5:
+		App->renderer->ScaledBlit(playerimage, (SCREEN_WIDTH / 2) - 124, (SCREEN_HEIGHT - 150), &(App->player->playerCrashAnimation.GetCurrentFrame()), 0.25f, 3, 3);
+		
 		break;
 	default:
 		App->renderer->ScaledBlit(playerimage, (SCREEN_WIDTH / 2) - 124, (SCREEN_HEIGHT - 150), &(App->player->playerAnimation.GetCurrentFrame()), 0.25f, 3, 3);
