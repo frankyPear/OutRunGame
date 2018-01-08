@@ -23,6 +23,11 @@ Extract the .zip on any folder and execute "SDL Game -OutRun.exe"
 
 Check out the gameplay by the following [link]()
 
+### How to finish the game:
+
+You have 60 seconds to reach the goal. You must avoid leaving the road and reach the destination on time. 
+Will you be able to get it?
+
 ### How to build the game on visual studio?
 
 Download the source code with the following [link](https://github.com/frankyPear/OutRunGame/releases) and open the visual studio project.
